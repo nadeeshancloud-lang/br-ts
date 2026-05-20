@@ -1124,3 +1124,119 @@ h1, h2, h3, .logo-text, .digital-counter {
     color: #ff4b4b; /* Hover කළ විට රතු පැහැ වේ */
     box-shadow: 0 0 15px rgba(255, 75, 75, 0.2);
 }
+/* ==========================================
+   ADVANCED AI PORTAL LAUNCHER STYLES
+   ========================================== */
+
+/* Center the card perfectly */
+.ai-portal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* Glassmorphism Card Styling */
+.ai-portal-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 24px;
+    padding: 3.5rem 2.5rem;
+    text-align: center;
+    max-width: 550px;
+    width: 100%;
+    box-shadow: 0 0 40px rgba(0, 242, 254, 0.03);
+    transition: all 0.4s ease-out;
+}
+
+.ai-portal-card:hover {
+    border-color: rgba(0, 242, 254, 0.15);
+    box-shadow: 0 0 60px rgba(147, 51, 234, 0.1);
+    transform: translateY(-5px);
+}
+
+/* Glowing Icon Animation */
+.ai-icon-wrapper {
+    display: inline-flex;
+    padding: 1.2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+    animation: floatIcon 4s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Typography */
+.ai-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(to right, #ffffff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.ai-subtitle {
+    color: #9ca3af;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
+}
+
+/* The Premium Button */
+.advanced-ai-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #06b6d4, #9333ea); /* Cyan to Purple */
+    color: white !important;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.25);
+}
+
+/* Shine effect on button */
+.advanced-ai-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: -100%;
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: all 0.6s ease;
+}
+
+.advanced-ai-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 40px rgba(147, 51, 234, 0.4);
+}
+
+.advanced-ai-btn:hover::before {
+    left: 100%;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+    letter-spacing: 0.5px;
+}
