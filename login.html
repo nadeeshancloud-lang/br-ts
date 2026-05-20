@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Access | KN Terminal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+
+    <div class="absolute-orbs">
+        <div class="orb orb-cyan"></div>
+        <div class="orb orb-purple"></div>
+    </div>
+
+    <div class="login-card-container">
+        <div class="login-card">
+            <div class="logo-area">
+                <div class="brand-logo">KN</div>
+            </div>
+            
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Initialize your secure session.</p>
+
+            <form id="loginForm" class="space-y-5">
+                <div class="input-group">
+                    <label>Email Array</label>
+                    <input type="email" id="email" placeholder="admin@system.com" required>
+                </div>
+
+                <div class="input-group">
+                    <div class="flex-justify">
+                        <label>Encryption Key</label>
+                        <a href="#" class="forgot-link">Forgot?</a>
+                    </div>
+                    <input type="password" id="password" placeholder="••••••••••••" required>
+                </div>
+
+                <div id="errorMessage" class="error-msg" style="display: none;"></div>
+
+                <button type="submit" id="submitBtn">Initialize Session</button>
+            </form>
+
+            <div class="divider-area">
+                <div class="divider-line"></div>
+                <span class="divider-text">Or connect with</span>
+            </div>
+
+            <div class="social-grid">
+                <button type="button" id="googleBtn" class="social-btn">Google</button>
+                <button type="button" id="githubBtn" class="social-btn">GitHub</button>
+            </div>
+            
+            <p class="signup-redirect">
+                No access credentials? <a href="#">Request Access</a>
+            </p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-check.js";
+
+        // 1. ඔයාගේ Firebase Web Config දත්ත මෙතනට දාන්න (ඔයා දීපු 3වෙනි කේතය)
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+            projectId: "YOUR_FIREBASE_PROJECT_ID",
+            storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+            appId: "YOUR_FIREBASE_APP_ID"
+        };
+
+        // Firebase Setup
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // reCAPTCHA App Check Setup (ඔයාගේ SITE KEY එක මෙතනට දාන්න)
+        if (typeof window !== "undefined") {
+            initializeAppCheck(app, {
+                provider: new ReCaptchaEnterpriseProvider('YOUR_RECAPTCHA_SITE_KEY_HERE'),
+                isTokenAutoRefreshEnabled: true
+            });
+        }
+
+        // 2. Anti-Bot Logic (ඔයා දීපු 2වෙනි කේතය - Human Behavior Analysis)
+        let humanScore = 0;
+        let mouseMoves = 0;
+
+        window.addEventListener('mousemove', () => {
+            if (mouseMoves < 50) {
+                mouseMoves++;
+                humanScore = Math.min(humanScore + 2, 100);
+            }
+        });
+
+        window.addEventListener('keydown', () => {
+            humanScore = Math.min(humanScore + 5, 100);
+        });
+
+        // Form Submit Logic
+        const loginForm = document.getElementById('loginForm');
+        const errorDiv = document.getElementById('errorMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorDiv.style.display = "none";
+
+            // Anti-Bot Threshold Check (isHuman = humanScore > 30)
+            if (humanScore <= 30) {
+                errorDiv.innerText = "Suspicious activity detected. Please try again.";
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            submitBtn.innerText = "Authenticating...";
+            submitBtn.disabled = true;
+
+            try {
+                // Email & Password Login
+                await signInWithEmailAndPassword(auth, email, password);
+                submitBtn.innerText = "Access Granted...";
+                
+                // ලොග් වූ පසු ප්‍රධාන index.html පිටුවට රීඩිරෙක්ට් කිරීම
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 800);
+            } catch (err) {
+                errorDiv.innerText = err.message.replace('Firebase: ', '');
+                errorDiv.style.display = "block";
+                submitBtn.innerText = "Initialize Session";
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Provider Login (Google / GitHub)
+        document.getElementById('googleBtn').addEventListener('click', () => handleProvider(new GoogleAuthProvider()));
+        document.getElementById('githubBtn').addEventListener('click', () => handleProvider(new GithubAuthProvider()));
+
+        async function handleProvider(provider) {
+            try {
+                await signInWithPopup(auth, provider);
+                window.location.href = "index.html";
+            } catch (err) {
+                errorDiv.innerText = err.message;
+                errorDiv.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
