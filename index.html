@@ -44,8 +44,15 @@
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#videos" class="nav-link">Videos</a></li>
                 <li><a href="#ai-portal" class="nav-link">AI Portal</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <div id="navAuthArea" class="nav-auth-container">
+    <a href="login.html" id="navLoginBtn" class="nav-login-btn">Login</a>
+    
+    <div id="navProfileArea" class="nav-profile-area" style="display: none;">
+        <span id="navUsername" class="nav-username"></span>
+        <button onclick="logoutUser()" class="nav-logout-btn">Logout</button>
+    </div>
+</div>
             </ul>
 
             <!-- Mobile Hamburger Menu Button -->
