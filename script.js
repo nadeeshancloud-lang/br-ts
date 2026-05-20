@@ -214,3 +214,48 @@ function initializeInteractiveGlowTrackers() {
         });
     });
 }
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+// Firebase Config (කලින් පියවරේදී ඔයාට ලැබුණු දත්ත මෙතනට දාන්න)
+const firebaseConfig = {
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+    projectId: "YOUR_FIREBASE_PROJECT_ID",
+    storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+    appId: "YOUR_FIREBASE_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// ඩයිනමික් Navbar එක පාලනය කිරීම
+const loginBtn = document.getElementById('navLoginBtn');
+const profileArea = document.getElementById('navProfileArea');
+const usernameSpan = document.getElementById('navUsername');
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // පරිශීලකයා ලොග් වී ඇත්නම්:
+        if(loginBtn) loginBtn.style.display = 'none'; // Login බටන් එක හංගන්න
+        if(profileArea) profileArea.style.display = 'flex'; // Profile කොටස පෙන්වන්න
+        
+        // පරිශීලකයාගේ ඊමේල් එකෙන් නම සාදා පෙන්වීම (උදා: amila@gmail.com -> amila)
+        const name = user.displayName || user.email.split('@')[0];
+        if(usernameSpan) usernameSpan.innerText = name.toUpperCase();
+    } else {
+        // පරිශීලකයා ලොග් වී නැත්නම් (Sign Out වී ඇත්නම්):
+        if(loginBtn) loginBtn.style.display = 'block';
+        if(profileArea) profileArea.style.display = 'none';
+    }
+});
+
+// Logout කිරීමේ පහසුකම ගෝලීයව (Global) ක්‍රියාත්මක කිරීම
+window.logoutUser = function() {
+    signOut(auth).then(() => {
+        window.location.reload(); // පිටුව Reload කර Navbar එක Reset කිරීම
+    }).catch((error) => {
+        console.error("Logout Error:", error);
+    });
+}
