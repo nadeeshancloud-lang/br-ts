@@ -1,3 +1,36 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+// Firebase Config එක මෙතනටත් ඇතුළත් කරන්න
+const firebaseConfig = {
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+    projectId: "YOUR_FIREBASE_PROJECT_ID",
+    storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID_HERE",
+    appId: "YOUR_FIREBASE_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// 🔒 ROUTE SECURITY MIDDLEWARE
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        // පරිශීලකයා ලොග් වී නැත්නම්, කෙලින්ම ලොගින් පේජ් එකට හරවා යවයි
+        window.location.href = "login.html";
+    } else {
+        console.log("Verified User Session Active:", user.email);
+        // මෙතනින් පස්සේ ඔයාගේ index.html එකේ සාමාන්‍ය වැඩකටයුතු (Chatbot ආදී දේවල්) ලියන්න.
+    }
+});
+
+// Logout කරවීමට අවශ්‍ය නම් භාවිතා කිරීමට Function එකක්
+window.logoutUser = function() {
+    signOut(auth).then(() => {
+        window.location.href = "login.html";
+    });
+}
 /**
  * CORE infratructure logic module - Kanishka Net | Master Hub
  */
