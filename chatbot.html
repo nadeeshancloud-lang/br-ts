@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Portal Terminal Execution Frame</title>
+    <!-- Embedded font dependencies for self-contained frame operations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="chatbot.css">
+</head>
+<body>
+
+    <div class="chatbot-internal-layout">
+        <!-- High-Tech Sidebar History Column -->
+        <aside class="terminal-sidebar">
+            <div class="sidebar-action-header">
+                <button class="new-session-btn" id="clearHistoryBtn">+ Clear Vector Context</button>
+            </div>
+            <div class="conversation-history-log">
+                <div class="history-item-badge active">
+                    <span class="history-icon">⚡</span>
+                    <div class="history-meta">
+                        <span class="label">Primary_Matrix_Node</span>
+                        <span class="timestamp">Active Stream</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Primary Interactive Messaging Viewport Matrix -->
+        <div class="terminal-chat-workspace">
+            <div class="message-stream-scroller" id="messageStream">
+                <!-- System Diagnostics Welcome Array Block -->
+                <div class="chat-bubble bubble-system">
+                    <div class="bubble-contents">
+                        <span class="sender-title">[ SYSTEM DIAGNOSTICS LOG ]</span>
+                        <p>Core cognitive arrays mapped successfully. Connection established via local network interface loopback. Waiting for data sequence directive inputs...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terminal Predictive Processing Status Array -->
+            <div class="ai-thinking-indicator-row hidden" id="thinkingIndicator">
+                <div class="ticker-dot"></div>
+                <div class="ticker-dot"></div>
+                <div class="ticker-dot"></div>
+                <span class="thinking-text">Matrix synthesizing logical paths...</span>
+            </div>
+
+            <!-- Bottom Data Transmission Console Input Block -->
+            <footer class="terminal-input-console-bar">
+                <form class="console-form-element" id="consoleForm" onsubmit="event.preventDefault();">
+                    <input 
+                        type="text" 
+                        id="consoleInputField" 
+                        placeholder="Input direct protocol statement sequence... (Press Enter to transmit)"
+                        autocomplete="off"
+                        required>
+                    <button type="submit" class="console-transmit-btn" aria-label="Transmit Input Execution Frame">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </footer>
+        </div>
+    </div>
+
+    <script src="chatbot.js"></script>
+</body>
+</html>
