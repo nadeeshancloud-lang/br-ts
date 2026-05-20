@@ -1064,3 +1064,63 @@ h1, h2, h3, .logo-text, .digital-counter {
     box-shadow: 0 0 15px rgba(52, 211, 153, 0.1);
     animation: fadeInUp 0.4s ease-out;
 }
+/* ==========================================
+   NAVBAR AUTH SYSTEM STYLING (KANISHKA NET)
+   ========================================== */
+.nav-auth-container {
+    display: flex;
+    align-items: center;
+    margin-left: 25px; /* Contact එකේ සිට ඇති පරතරය */
+}
+
+/* Premium Glowing Login Button */
+.nav-login-btn {
+    padding: 8px 22px;
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    color: #050505 !important; /* කළු පැහැති අකුරු */
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-login-btn:hover {
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+    transform: translateY(-1px);
+}
+
+/* Logged In Profile Area */
+.nav-profile-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-username {
+    font-size: 14px;
+    color: #00f2fe; /* Cyan පැහැයෙන් පරිශීලක නාමය */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Premium Logout Button */
+.nav-logout-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-logout-btn:hover {
+    background: rgba(255, 75, 75, 0.1);
+    border-color: #ff4b4b;
+    color: #ff4b4b; /* Hover කළ විට රතු පැහැ වේ */
+    box-shadow: 0 0 15px rgba(255, 75, 75, 0.2);
+}
