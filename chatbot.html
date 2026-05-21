@@ -48,30 +48,32 @@
                     <a href="https://gemini.google.com" target="_blank" class="advanced-ai-btn">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
         <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-    </svg>
-    <span class="btn-text">Launch AI Assistant</span>
-</a>
+<div class="matrix-init-wrapper">
+    <div class="matrix-card">
+        
+        <div class="icon-container">
+            <svg viewBox="0 0 24 24" width="55" height="55" class="pulse-icon">
+                <defs>
                     <linearGradient id="cyan-purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#00f2fe" />
                         <stop offset="100%" stop-color="#9333ea" />
                     </linearGradient>
                 </defs>
-                <rect width="16" height="16" x="4" y="4" rx="2" />
-                <rect width="6" height="6" x="9" y="9" rx="1" />
-                <path d="M15 2v2" /><path d="M15 20v2" />
-                <path d="M2 15h2" /><path d="M2 9h2" />
-                <path d="M20 15h2" /><path d="M20 9h2" />
-                <path d="M9 2v2" /><path d="M9 20v2" />
+                <rect width="16" height="16" x="4" y="4" rx="3" fill="none" stroke="url(#cyan-purple-gradient)" stroke-width="2"/>
+                <rect width="6" height="6" x="9" y="9" rx="1.5" fill="url(#cyan-purple-gradient)"/>
+                <path d="M12 2v2M12 20v2M2 12h2M20 12h2" stroke="url(#cyan-purple-gradient)" stroke-width="2" stroke-linecap="round"/>
             </svg>
         </div>
 
         <h2 class="ai-title">Initialize AI Matrix</h2>
         <p class="ai-subtitle">Direct cognitive interface for real-time model synthesis. Connect to the primary neural network.</p>
 
-        <a href="https://gemini.google.com" target="_blank" class="advanced-ai-btn">
+        <a href="https://gemini.google.com" target="_blank" class="advanced-ai-btn" id="launchBtn">
             <span class="btn-text">Launch AI Assistant</span>
             <span class="btn-glow"></span>
         </a>
+        
+        <div class="status-terminal" id="statusLog"></div>
     </div>
 </div>
 
