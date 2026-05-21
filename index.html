@@ -276,42 +276,45 @@
         resultSection.style.display = "none";
         errorSection.style.display = "none";
 
-        try {
-            // 💡 මෙතන තමයි වෙනස කරේ! (CORS Proxy එකක් දැම්මා)
-            const targetApiUrl = `https://api-dark-shan-yt.koyeb.app/download/ytmp3?url=${encodeURIComponent(ytLink)}`;
+       try {
+            // අලුත් v2 API එකට URL එක දාමු
+            const targetApiUrl = `https://api-dark-shan-yt.koyeb.app/download/ytmp3-v2?url=${encodeURIComponent(ytLink)}`;
             const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetApiUrl)}`;
             
-            // fetch කරන්නේ Proxy එක හරහා
             const response = await fetch(proxyUrl);
             const data = await response.json();
 
+            // Server එකෙන් status: true ඇවිත්, හැබැයි data ඇතුළේ error එකක් ආවොත් (500 Error)
+            if (data.status === true && data.data && data.data.error) {
+                throw new Error(`API Server Error: ${data.data.error}`); 
+            }
+
+            // සාර්ථකව Convert වුණොත්
             if (data.status === true || data.status === "true") {
-                const mp3Url = data.result || data.url || data.download_link || data.data; 
                 
-                if(mp3Url) {
+                // අලුත් v2 JSON එකට අනුව link එක ගන්නවා
+                // (API එකෙන් link එක එවන නම හරියටම දන්නේ නැති නිසා url, download, link කියලා options කීපයක් දැම්මා)
+                const mp3Url = (data.data && (data.data.url || data.data.download || data.data.link)) || data.url || data.result; 
+                
+                if(mp3Url && typeof mp3Url === 'string') {
                     downloadLink.href = mp3Url;
                     resultSection.style.display = "block";
                 } else {
-                    throw new Error("Download link not provided by server.");
+                    throw new Error("Download link not provided by the API.");
                 }
             } else {
                 throw new Error(data.err || "API rejected the request.");
             }
 
         } catch (error) {
-            console.error("Full Error details:", error);
-            showError("Error: Failed to fetch. API might be offline or blocked.");
+            console.error(error);
+            showError("Error: " + (error.message || "Failed to convert. Try again."));
         } finally {
+            // Reset Button
             convertBtn.disabled = false;
             btnText.innerText = "Convert to MP3";
             spinner.style.display = "none";
         }
-    });
-
-    function showError(msg) {
-        errorText.innerText = msg;
-        errorSection.style.display = "block";
-    }
 </script>
 </body>
 </html>
