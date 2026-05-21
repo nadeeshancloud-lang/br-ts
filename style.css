@@ -1353,3 +1353,121 @@ h1, h2, h3, .logo-text, .digital-counter {
     object-fit: contain; /* පින්තූරය ඇද නොවී ගානට තියාගන්න */
     filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3)); /* පින්තූරයට පවා shadow එකක් */
 }
+
+/* Cyber Footer Base Styling */
+.cyber-footer {
+  background-color: #000000; /* වෙබ් අඩවියේ පතුලේ ඇති කළු පැහැය */
+  padding: 30px 40px;
+  border-top: 1px solid rgba(0, 242, 254, 0.1); /* සියුම් සයිබර් නිල් පැහැති රේඛාවක් */
+  font-family: 'Courier New', Courier, monospace; /* Terminal පෙනුම සඳහා */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Left Side Styling */
+.footer-left p {
+  color: #8a99ad;
+  font-size: 13px;
+  margin: 0;
+}
+
+.neon-text {
+  color: #00f2fe; /* Glowing Cyan */
+  text-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
+}
+
+/* Right Side Container */
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 15px;
+}
+
+/* Advanced Cyber Social Icons */
+.cyber-socials {
+  display: flex;
+  gap: 15px;
+}
+
+.cyber-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px; /* Square with slight roundness for tech look */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #8a99ad;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(138, 153, 173, 0.2);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover Effects with Matrix/Neon Glow */
+.cyber-icon:hover {
+  transform: translateY(-4px);
+  color: #ffffff;
+}
+
+.cyber-icon.yt:hover {
+  background: #ff0000;
+  border-color: #ff0000;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+
+.cyber-icon.fb:hover {
+  background: #1877f2;
+  border-color: #1877f2;
+  box-shadow: 0 0 15px rgba(24, 119, 242, 0.6);
+}
+
+.cyber-icon.wa-biz:hover {
+  background: #25d366;
+  border-color: #25d366;
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.6);
+}
+
+.cyber-icon.wa-personal:hover {
+  background: #00b4d8;
+  border-color: #00b4d8;
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.6);
+}
+
+/* Terminal Nav Links Styling */
+.terminal-links {
+  display: flex;
+  gap: 20px;
+}
+
+.terminal-links a {
+  color: #8a99ad;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s ease;
+}
+
+.terminal-links a:hover {
+  color: #00f2fe;
+  text-shadow: 0 0 5px rgba(0, 242, 254, 0.5);
+}
+
+/* Responsive for Mobile Devices */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-right {
+    align-items: center;
+  }
+}
