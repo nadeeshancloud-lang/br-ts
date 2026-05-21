@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanishka Net | MP3 Master Downloader</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap');
+
+        :root {
+            --bg-left: #1a0822; /* Dark Purple */
+            --bg-right: #081e22; /* Dark Teal */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --accent-pink: #e91e63;
+            --accent-cyan: #00e5ff;
+            --text-main: #ffffff;
+            --text-muted: #8b8f9e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-left) 0%, #111 50%, var(--bg-right) 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header span {
+            color: var(--accent-cyan);
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .downloader-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 15px rgba(233, 30, 99, 0.3);
+        }
+
+        /* Preview Section */
+        #preview-section {
+            display: none;
+            margin-bottom: 25px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #thumbnail {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-cyan));
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.4);
+        }
+
+        .btn:disabled {
+            background: #333;
+            color: #777;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Results & Download */
+        #result-section {
+            display: none;
+            margin-top: 25px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px dashed var(--accent-cyan);
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #error-section {
+            display: none;
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(233, 30, 99, 0.1);
+            border: 1px dashed var(--accent-pink);
+            border-radius: 10px;
+            color: var(--accent-pink);
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 14px 30px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .download-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+        }
+
+        .spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Kanishka <span>Net</span></h1>
+        <p>Pro MP3 Converter Hub</p>
+    </div>
+
+    <div class="downloader-card">
+        <div class="input-group">
+            <input type="url" id="yt-url" placeholder="Paste YouTube Video Link Here..." autocomplete="off">
+        </div>
+
+        <div id="preview-section">
+            <img id="thumbnail" src="" alt="Video Thumbnail">
+            <p style="color: var(--accent-cyan); margin-top: 10px; font-size: 1rem;">Video Detected. Ready to Convert.</p>
+        </div>
+
+        <button class="btn" id="convert-btn">
+            <span id="btn-text">Convert to MP3</span>
+            <div class="spinner" id="spinner"></div>
+        </button>
+
+        <div id="error-section">
+            <p id="error-text">Failed to connect or invalid URL.</p>
+        </div>
+
+        <div id="result-section">
+            <h3 style="color: #fff; font-family: 'Orbitron', sans-serif;">Conversion Complete!</h3>
+            <a href="#" id="download-link" class="download-btn" target="_blank" rel="noopener noreferrer">Direct Download MP3</a>
+        </div>
+    </div>
+
+    <script>
+        const urlInput = document.getElementById('yt-url');
+        const previewSection = document.getElementById('preview-section');
+        const thumbnailImg = document.getElementById('thumbnail');
+        const convertBtn = document.getElementById('convert-btn');
+        const btnText = document.getElementById('btn-text');
+        const spinner = document.getElementById('spinner');
+        const resultSection = document.getElementById('result-section');
+        const errorSection = document.getElementById('error-section');
+        const errorText = document.getElementById('error-text');
+        const downloadLink = document.getElementById('download-link');
+
+        // Extract Video ID from URL to show Thumbnail instantly
+        function extractVideoID(url) {
+            let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+            return match ? match[1] : null;
+        }
+
+        // Listen for user pasting or typing the link
+        urlInput.addEventListener('input', () => {
+            const val = urlInput.value.trim();
+            const vidID = extractVideoID(val);
+            
+            if (vidID) {
+                // Show high quality thumbnail
+                thumbnailImg.src = `https://img.youtube.com/vi/${vidID}/hqdefault.jpg`;
+                previewSection.style.display = 'block';
+                resultSection.style.display = 'none';
+                errorSection.style.display = 'none';
+            } else {
+                previewSection.style.display = 'none';
+            }
+        });
+
+        // Conversion Process using Cobalt API
+        convertBtn.addEventListener('click', async () => {
+            const ytLink = urlInput.value.trim();
+            if(!ytLink) {
+                showError("Please paste a valid YouTube Link first.");
+                return;
+            }
+
+            // UI Loading State
+            convertBtn.disabled = true;
+            btnText.innerText = "Processing Algorithm...";
+            spinner.style.display = "block";
+            resultSection.style.display = "none";
+            errorSection.style.display = "none";
+
+            try {
+                // Cobalt API Config
+                const apiUrl = 'https://api.cobalt.tools/api/json';
+                const payload = {
+                    url: ytLink,
+                    isAudioOnly: true, // We only want MP3/Audio
+                    aFormat: "mp3",    // Force MP3 format
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                // Cobalt returns 'url' directly on success
+                if (response.ok && data.url) {
+                    downloadLink.href = data.url;
+                    resultSection.style.display = "block";
+                } else if (data.text) {
+                    // Cobalt returns error text in 'text' key
+                    throw new Error(data.text);
+                } else {
+                    throw new Error("Failed to generate download link.");
+                }
+
+            } catch (error) {
+                console.error("Conversion Error:", error);
+                showError("Error: " + (error.message || "Failed to connect to conversion server."));
+            } finally {
+                // Reset Button
+                convertBtn.disabled = false;
+                btnText.innerText = "Convert to MP3";
+                spinner.style.display = "none";
+            }
+        });
+
+        function showError(msg) {
+            errorText.innerText = msg;
+            errorSection.style.display = "block";
+        }
+    </script>
+</body>
+</html>
