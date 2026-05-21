@@ -274,3 +274,126 @@ body {
         display: none; /* Strip context logs on small views to protect viewport area */
     }
 }
+/* Card එක Frame එක ඇතුළේ හරියටම මැදට (Center) ගන්න */
+.matrix-init-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* Futuristic Glassmorphism Card Style */
+.matrix-card {
+    background: rgba(15, 18, 36, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 242, 254, 0.15);
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 
+                inset 0 0 20px rgba(147, 51, 234, 0.05);
+    transition: all 0.4s ease;
+}
+
+/* Card එක උඩට මවුස් එක ගෙනිද්දී වෙනස් වීම */
+.matrix-card:hover {
+    border-color: rgba(0, 242, 254, 0.35);
+    box-shadow: 0 20px 50px rgba(0, 242, 254, 0.08), 
+                inset 0 0 30px rgba(147, 51, 234, 0.1);
+}
+
+/* Icon එක Glow වෙමින් පල්ස් වෙන ඇනිමේෂන් එක */
+.icon-container {
+    margin-bottom: 22px;
+}
+.pulse-icon {
+    filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.6));
+    animation: cyberPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes cyberPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.5)); }
+    50% { transform: scale(1.06); filter: drop-shadow(0 0 18px rgba(147, 51, 234, 0.8)); }
+}
+
+/* Typography Styles */
+.ai-title {
+    color: #ffffff;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-weight: 700;
+    font-size: 1.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 0 0 12px 0;
+    background: linear-gradient(90deg, #ffffff, #00f2fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.ai-subtitle {
+    color: #94a3b8;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin: 0 0 30px 0;
+}
+
+/* Advanced Glowing Button */
+.advanced-ai-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 38px;
+    background: linear-gradient(90deg, #00f2fe, #9333ea);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+.advanced-ai-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(147, 51, 234, 0.7);
+    letter-spacing: 2px;
+}
+
+/* Button එක හරහා යන Light Streak (Glow) Effect එක */
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transition: 0.6s;
+}
+
+.advanced-ai-btn:hover .btn-glow {
+    left: 100%;
+}
+
+/* Live Terminal Status Text */
+.status-terminal {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    color: #00f2fe;
+    margin-top: 18px;
+    min-height: 20px;
+    text-align: center;
+    font-weight: bold;
+}
