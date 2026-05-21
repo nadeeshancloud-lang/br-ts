@@ -3,318 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanishka Net | MP3 Master Downloader</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap');
-
-        :root {
-            --bg-left: #1a0822; /* Dark Purple */
-            --bg-right: #081e22; /* Dark Teal */
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --accent-pink: #e91e63;
-            --accent-cyan: #00e5ff;
-            --text-main: #ffffff;
-            --text-muted: #8b8f9e;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Rajdhani', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--bg-left) 0%, #111 50%, var(--bg-right) 100%);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .header span {
-            color: var(--accent-cyan);
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-top: 10px;
-        }
-
-        .downloader-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 40px;
-            width: 100%;
-            max-width: 650px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 18px 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1.1rem;
-            outline: none;
-            transition: 0.3s ease;
-        }
-
-        .input-group input:focus {
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 15px rgba(233, 30, 99, 0.3);
-        }
-
-        /* Preview Section */
-        #preview-section {
-            display: none;
-            margin-bottom: 25px;
-            text-align: center;
-            animation: fadeIn 0.5s ease;
-        }
-
-        #thumbnail {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(90deg, var(--accent-pink), var(--accent-cyan));
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-family: 'Orbitron', sans-serif;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.4);
-        }
-
-        .btn:disabled {
-            background: #333;
-            color: #777;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* Results & Download */
-        #result-section {
-            display: none;
-            margin-top: 25px;
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 229, 255, 0.05);
-            border: 1px dashed var(--accent-cyan);
-            border-radius: 10px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        #error-section {
-            display: none;
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(233, 30, 99, 0.1);
-            border: 1px dashed var(--accent-pink);
-            border-radius: 10px;
-            color: var(--accent-pink);
-            text-align: center;
-        }
-
-        .download-btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 14px 30px;
-            background: #fff;
-            color: #000;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        .download-btn:hover {
-            background: var(--accent-cyan);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
-        }
-
-        .spinner {
-            display: none;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
-    </style>
+    <title>Kanishka Net | Master Hub</title>
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/nadeeshancloud-lang/kanishkanet.github.io/main/logonet.ico">
+    <!-- Google Fonts for Ultra-Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="header">
-        <h1>Kanishka <span>Net</span></h1>
-        <p>Pro MP3 Converter Hub</p>
+    <!-- Custom Micro-Interactive Background Canvas Layer -->
+    <div class="ambient-glow-container">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
     </div>
 
-    <div class="downloader-card">
-        <div class="input-group">
-            <input type="url" id="yt-url" placeholder="Paste YouTube Video Link Here..." autocomplete="off">
-        </div>
+    <!-- STICKY GLASS NAVIGATION BAR -->
+    <header class="main-header">
+        <nav class="nav-container">
+            <a href="#home" class="logo-wrapper">
+                <!-- Gemini-Style Geometric Custom SVG Logo -->
+                <svg class="logo-icon" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00f3ff" />
+                            <stop offset="50%" stop-color="#8000ff" />
+                            <stop offset="100%" stop-color="#ff007f" />
+                        </linearGradient>
+                    </defs>
+                    <polygon points="25,5 45,20 35,45 15,45 5,20" fill="none" stroke="url(#logo-grad)" stroke-width="3"/>
+                    <circle cx="25" cy="25" r="8" fill="url(#logo-grad)"/>
+                </svg>
+                <span class="logo-text">Kanishka Net <span class="logo-subtext">| Master Hub</span></span>
+            </a>
 
-        <div id="preview-section">
-            <img id="thumbnail" src="" alt="Video Thumbnail">
-            <p style="color: var(--accent-cyan); margin-top: 10px; font-size: 1rem;">Video Detected. Ready to Convert.</p>
-        </div>
-
-        <button class="btn" id="convert-btn">
-            <span id="btn-text">Convert to MP3</span>
-            <div class="spinner" id="spinner"></div>
-        </button>
-
-        <div id="error-section">
-            <p id="error-text">Failed to connect or invalid URL.</p>
-        </div>
-
-        <div id="result-section">
-            <h3 style="color: #fff; font-family: 'Orbitron', sans-serif;">Conversion Complete!</h3>
-            <a href="#" id="download-link" class="download-btn" target="_blank">Direct Download MP3</a>
-        </div>
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#videos" class="nav-link">Videos</a></li>
+                <li><a href="#ai-portal" class="nav-link">AI Portal</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <div id="navAuthArea" class="nav-auth-container">
+    <a href="login.html" id="navLoginBtn" class="nav-login-btn">Login</a>
+    
+    <div id="navProfileArea" class="nav-profile-area" style="display: none;">
+        <span id="navUsername" class="nav-username"></span>
+        <button onclick="logoutUser()" class="nav-logout-btn">Logout</button>
     </div>
+</div>
+            </ul>
 
-   <script>
-    const urlInput = document.getElementById('yt-url');
-    const previewSection = document.getElementById('preview-section');
-    const thumbnailImg = document.getElementById('thumbnail');
-    const convertBtn = document.getElementById('convert-btn');
-    const btnText = document.getElementById('btn-text');
-    const spinner = document.getElementById('spinner');
-    const resultSection = document.getElementById('result-section');
-    const errorSection = document.getElementById('error-section');
-    const errorText = document.getElementById('error-text');
-    const downloadLink = document.getElementById('download-link');
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </nav>
+    </header>
 
-    // Extract Video ID from URL to show Thumbnail instantly
-    function extractVideoID(url) {
-        let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
-        return match ? match[1] : null;
-    }
+    <main>
+        <!-- FUTURISTIC HERO SECTION -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">WELCOME TO <span class="gradient-text">KANISHKA NET</span></h1>
+                <p class="hero-subtitle"><span id="typing-text"></span><span class="cursor-blink">|</span></p>
+                <p class="hero-description">
+                    The ultimate command center for next-generation AI integrations, premium motion architectures, and cinematic visual deployment. Experience absolute digital fidelity.
+                </p>
+                <div class="hero-actions">
+                    <a href="#ai-portal" class="btn btn-primary">Explore Hub</a>
+                    <a href="#videos" class="btn btn-secondary">📺 Watch Tutorials</a>
+                </div>
+            </div>
+            <!-- Floating Holographic Display Card Example -->
+            <div class="hero-hologram-card">
+                <div class="hologram-inner">
+                    <div class="hologram-grid-overlay"></div>
+                    <span class="status-badge">SYSTEM: ONLINE</span>⚡
+                    <h3>AI Node v3.0 <sub style="font-size: 10px; color: gold;">Pro</sub></h3>
+                    <p>Processing deep neural layout models at 60 FPS.</p>
+                </div>
+            </div>
+        </section>
 
-    urlInput.addEventListener('input', () => {
-        const val = urlInput.value.trim();
-        const vidID = extractVideoID(val);
-        
-        if (vidID) {
-            thumbnailImg.src = `https://img.youtube.com/vi/${vidID}/hqdefault.jpg`;
-            previewSection.style.display = 'block';
-            resultSection.style.display = 'none';
-            errorSection.style.display = 'none';
-        } else {
-            previewSection.style.display = 'none';
-        }
+        <!-- PREMIUM YOUTUBE VIDEO SHOWCASE GRID -->
+        <section id="videos" class="video-section">
+            <div class="section-header">
+                <h2 class="section-title">You Tube Tutorials</h2>
+                <p class="section-subtitle">High-fidelity instructional pipelines and masterclasses</p>
+            </div>
+            <!-- Video Showcase Grid Wrapper -->
+            <div class="video-grid" id="dynamic-video-grid">
+                <!-- Fallback/Skeleton cards automatically generated via JavaScript -->
+            </div>
+        </section>
+<button class="back-to-top-btn" id="scrollTopBtn" aria-label="Return to Navigation Crest">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script>
+    /**
+     * CORE infrastructure logic module - Kanishka Net | Master Hub
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+        initializeTypingEffect();
+        initializeVideoShowcase();
+        initializeVisitorCounter();
+        initializeScrollObserver();
+        initializeInteractiveGlowTrackers();
     });
 
-    // Conversion Process
-    convertBtn.addEventListener('click', async () => {
-        const ytLink = urlInput.value.trim();
-        if(!ytLink) {
-            showError("Please paste a valid YouTube Link first.");
-            return;
-        }
+    /* --- TEXT TYPING SEQUENCE HOOK --- */
+    function initializeTypingEffect() {
+        const textTarget = document.getElementById("typing-text");
+        const tracks = [
+            "Synthesizing Autonomous Cognitive Systems.",
+            "Developing Immersive Creative Interfaces.",
+            "Executing Next-Gen Neural Pipelines."
+        ];
+        let trackIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 70;
 
-        convertBtn.disabled = true;
-        btnText.innerText = "Processing Algorithm...";
-        spinner.style.display = "block";
-        resultSection.style.display = "none";
-        errorSection.style.display = "none";
-
-       try {
-            // අලුත් v2 API එකට URL එක දාමු
-            const targetApiUrl = `https://api-dark-shan-yt.koyeb.app/download/ytmp3-v2?url=${encodeURIComponent(ytLink)}`;
-            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetApiUrl)}`;
+        function handleTypeSequence() {
+            const currentFullTrack = tracks[trackIndex];
             
-            const response = await fetch(proxyUrl);
-            const data = await response.json();
-
-            // Server එකෙන් status: true ඇවිත්, හැබැයි data ඇතුළේ error එකක් ආවොත් (500 Error)
-            if (data.status === true && data.data && data.data.error) {
-                throw new Error(`API Server Error: ${data.data.error}`); 
-            }
-
-            // සාර්ථකව Convert වුණොත්
-            if (data.status === true || data.status === "true") {
-                
-                // අලුත් v2 JSON එකට අනුව link එක ගන්නවා
-                // (API එකෙන් link එක එවන නම හරියටම දන්නේ නැති නිසා url, download, link කියලා options කීපයක් දැම්මා)
-                const mp3Url = (data.data && (data.data.url || data.data.download || data.data.link)) || data.url || data.result; 
-                
-                if(mp3Url && typeof mp3Url === 'string') {
-                    downloadLink.href = mp3Url;
-                    resultSection.style.display = "block";
-                } else {
-                    throw new Error("Download link not provided by the API.");
-                }
+            if (isDeleting) {
+                textTarget.textContent = currentFullTrack.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 35;
             } else {
-                throw new Error(data.err || "API rejected the request.");
+                textTarget.textContent = currentFullTrack.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 80;
             }
 
-        } catch (error) {
-            console.error(error);
-            showError("Error: " + (error.message || "Failed to convert. Try again."));
-        } finally {
-            // Reset Button
-            convertBtn.disabled = false;
-            btnText.innerText = "Convert to MP3";
-            spinner.style.display = "none";
+            if (!isDeleting && charIndex === currentFullTrack.length) {
+                typingSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                trackIndex = (trackIndex + 1) % tracks.length;
+                typingSpeed = 400;
+            }
+
+            setTimeout(handleTypeSequence, typingSpeed);
         }
-</script>
+        
+        if(textTarget) setTimeout(handleTypeSequence, 500);
+    }
+
+/* --- YOUTUBE VIDEO CONTEXT FEED SHIFT ENGINE (FORCED INLINE DISPLAY) --- */
+function initializeVideoShowcase() {
+    const gridContainer = document.getElementById("dynamic-video-grid");
+    if (!gridContainer) return;
+
+    const fallbackPayloadMock = [
+        {
+            "title": "E Money Online Jobs 2026 💸 | No Skills Needed",
+            "youtubeId": "https://www.youtube.com/embed/dmBHvMUfDL8", 
+            "category": "E-Money",
+            "duration": "11:35"
+        },
+        {
+            "title": "Free Cloud VPS | Fast Internet 🚀",
+            "youtubeId": "https://www.youtube.com/embed/femu3mA-NAw",
+            "category": "Tech & Servers",
+            "duration": "17:38"
+        },
+        {
+            "title": "How to download PC games for Free",
+            "youtubeId": "https://www.youtube.com/embed/zJMSBrNArzg",
+            "category": "Gaming",
+            "duration": "09:05"
+        }
+    ];
+
+    gridContainer.innerHTML = ""; // පරණ ටෙම්ප්ලේට් මකන්න
+
+    fallbackPayloadMock.forEach(item => {
+        const cardElement = document.createElement("div");
+        cardElement.className = "video-card glass-panel";
+        
+        // Wrapper එකට සහ Iframe එකට Inline CSS මඟින් බලෙන්ම Size එක ලබා දීම
+        cardElement.innerHTML = `
+            <div class="video-frame-wrapper" style="position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 8px; overflow: hidden;">
+                <iframe 
+                    src="${item.youtubeId}" 
+                    title="${item.title}" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                    loading="lazy"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block;">
+                </iframe>
+            </div>
+            <div class="video-meta" style="padding-top: 12px;">
+                <span class="tech-tag">${item.category} • ${item.duration}</span>
+                <h3 style="margin: 8px 0; font-size: 1.1rem; color: #fff;">${item.title}</h3>
+                <p style="font-size: 0.9rem; color: #8a99ad;">Watch this complete tutorial on Kanishka Net for step-by-step guidance.</p>
+            </div>
+        `;
+        gridContainer.appendChild(cardElement);
+    });
+}    /* --- CALENDAR-STYLE 5-DIGIT TELEMETRY COUNTER PROXIES --- */
+    function initializeVisitorCounter() {
+        const counterContainer = document.getElementById("visitor-counter");
+        if (!counterContainer) return;
+
+        let currentVisits = parseInt(localStorage.getItem("kanishka_hub_telemetry_v3") || "01428");
+        currentVisits++;
+        localStorage.setItem("kanishka_hub_telemetry_v3", String(currentVisits).padStart(5, '0'));
+
+        const formattedDigitsArray = String(currentVisits).padStart(5, '0').split('');
+        const uiDigitBoxes = counterContainer.querySelectorAll(".digit");
+
+        uiDigitBoxes.forEach((boxElement, index) => {
+            if(formattedDigitsArray[index]) {
+                boxElement.textContent = formattedDigitsArray[index];
+            }
+        });
+    }
+
+    /* --- ACTIVE LINK SCROLL UTILITIES & TARGET TRACKERS --- */
+    function initializeScrollObserver() {
+        const targetSections = document.querySelectorAll("main > section");
+        const navLinks = document.querySelectorAll(".nav-link");
+        const topButton = document.getElementById("scrollTopBtn");
+
+        const observerOptionParameters = {
+            root: null,
+            threshold: 0.3,
+            rootMargin: "-10% 0px -40% 0px"
+        };
+
+        const intersectionObserverInstance = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const targetId = entry.target.getAttribute("id");
+                    navLinks.forEach(link => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("href") === `#${targetId}`) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            });
+        }, observerOptionParameters);
+
+        targetSections.forEach(section => intersectionObserverInstance.observe(section));
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 400) {
+                topButton.classList.add("visible");
+            } else {
+                topButton.classList.remove("visible");
+            }
+        });
+
+        topButton.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    /* --- MOUSE COORDINATE AMBIENT SHADER PARALLAX ADJUSTMENT --- */
+    function initializeInteractiveGlowTrackers() {
+        const glowOrbs = document.querySelectorAll(".glow-orb");
+        if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        window.addEventListener("mousemove", (event) => {
+            const normalizedCoordinateX = (event.clientX / window.innerWidth) - 0.5;
+            const normalizedCoordinateY = (event.clientY / window.innerHeight) - 0.5;
+
+            glowOrbs.forEach((orb, index) => {
+                const translationDepthFactor = (index + 1) * 35;
+                orb.style.transform = `translate(${normalizedCoordinateX * translationDepthFactor}px, ${normalizedCoordinateY * translationDepthFactor}px)`;
+            });
+        });
+    }
+    </script>
+
+        <!-- INTEGRATED AI CHATBOT INTERFACE (AI PORTAL) -->
+        <section id="ai-portal" class="ai-portal-section">
+            <div class="section-header">
+                <h2 class="section-title">AI Portal Terminal</h2>
+                <p class="section-subtitle">Direct cognitive interface for real-time model synthesis</p>
+            </div>
+            <!-- Beautiful Frame Container designated for embedding external chatbot.html -->
+            <div class="portal-frame-container">
+                <div class="terminal-header-bar">
+                    <div class="window-controls">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-title">core_assistant_os.sh</div>
+                    <div class="status-indicator">
+                        <span class="pulse-dot"></span>
+                        <span class="status-text">AI Assistant Online</span>
+                    </div>
+                </div>
+                <!-- Chatbot iframe Wrapper Hook -->
+                <div class="iframe-wrapper">
+                    <iframe src="chatbot.html" title="AI Chatbot Terminal Instance" class="chatbot-iframe" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECT SHOWCASE CONTAINER -->
+        <section id="projects" class="projects-section">
+            <div class="section-header">
+                <h2 class="section-title">Architectural Deployments</h2>
+                <p class="section-subtitle">Production-grade systems optimized for scale</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card glass-panel">
+                    <div class="project-img-placeholder">SYSTEM NODE 01</div>
+                    <div class="project-info">
+                        <span class="tech-tag">WebGL / Three.js</span>
+                        <h3>Quantum Neural Render Engine</h3>
+                        <p>High-refresh browser landscape synthesis utilizing extreme shader pipelines.</p>
+                    </div>
+                </div>
+                <div class="project-card glass-panel">
+                    <div class="project-img-placeholder">SYSTEM NODE 02</div>
+                    <div class="project-info">
+                        <span class="tech-tag">Vanilla JS / CSS Grid</span>
+                        <h3>Glassmorphic Control Array</h3>
+                        <p>Fluid, ultra-responsive telemetry layout systems engineered for low memory consumption.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE CONTACT SYSTEM -->
+        <section id="contact" class="contact-section">
+            <div class="glass-panel contact-card-wrapper">
+                <div class="section-header">
+                    <h2 class="section-title">Initialize Connection</h2>
+                    <p class="section-subtitle">Transmit parameters directly to our development matrix</p>
+                </div>
+                <form class="futuristic-form" onsubmit="event.preventDefault();">
+                    <div class="input-group">
+                        <input type="text" id="user-name" required placeholder=" ">
+                        <label for="user-name">Identity Coordinate (Name)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="user-email" required placeholder=" ">
+                        <label for="user-email">Secure Communication Routing (Email)</label>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="user-msg" rows="4" required placeholder=" "></textarea>
+                        <label for="user-msg">Data Payload Description</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit-btn">Transmit Stream</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- CALENDAR-STYLE 5-DIGIT DIGITAL VISITOR COUNTER -->
+        <section class="visitor-counter-section">
+            <div class="counter-container glass-panel">
+                <h4 class="counter-label">SECURE DATASTREAM VISITOR TRANSMISSIONS</h4>
+                <div class="digital-counter" id="visitor-counter">
+                    <div class="digit-box"><span class="digit">0</span></div>
+                    <div class="digit-divider">:</div>
+                    <div class="digit-box"><span class="digit">0</span></div>
+                    <div class="digit-divider">:</div>
+                    <div class="digit-box"><span class="digit">0</span></div>
+                    <div class="digit-divider">:</div>
+                    <div class="digit-box"><span class="digit">0</span></div>
+                    <div class="digit-divider">:</div>
+                    <div class="digit-box"><span class="digit">0</span></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- STRUCTURAL FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-divider"></div>
+        <div class="footer-container">
+            <p class="copyright">&copy; 2026 <span class="gradient-text">Kanishka Net</span>. All Protocol Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#home">Terminal Top</a>
+                <a href="#videos">Data Feed</a>
+                <a href="#ai-portal">System Matrix</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Back-to-Top Action Array -->
+    <button class="back-to-top-btn" id="scrollTopBtn" aria-label="Return to Navigation Crest">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
 </body>
 </html>
