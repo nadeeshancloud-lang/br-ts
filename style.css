@@ -1311,3 +1311,45 @@ h1, h2, h3, .logo-text, .digital-counter {
 .btn-text {
     letter-spacing: 0.5px;
 }
+
+/* Logo එක මැදට ගන්න සහ Space තියාගන්න */
+.logo-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+/* Advanced Glowing Box (Glassmorphic Effect) */
+.brand-logo-wrapper {
+    width: 80px;  /* ඔයාට කැමති ප්‍රමාණයකට වෙනස් කරගන්න පුළුවන් */
+    height: 80px;
+    background: rgba(255, 255, 255, 0.08); /* ලස්සන transparent background එකක් */
+    border-radius: 50%; /* වටකුරු හැඩය */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), 
+                0 0 15px rgba(79, 172, 254, 0.4); /* වටේට ලස්සන Neon Glow එකක් */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth motion effect */
+    cursor: pointer;
+}
+
+/* Mouse එක උඩට අරන් යනකොට සිදුවන Advanced Animation එක (Hover) */
+.brand-logo-wrapper:hover {
+    transform: scale(1.08) translateY(-3px); /* තරමක් ලොකු වී ඉහළට එසවීම */
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3), 
+                0 0 25px rgba(0, 242, 254, 0.8); /* Glow එක වැඩි වීම */
+    border-color: rgba(0, 242, 254, 0.6);
+}
+
+/* Image එක හරියටම Box එක ඇතුලට Fit කරන කොටස */
+.brand-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* පින්තූරය ඇද නොවී ගානට තියාගන්න */
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3)); /* පින්තූරයට පවා shadow එකක් */
+}
