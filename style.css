@@ -1587,15 +1587,6 @@ h1, h2, h3, .logo-text, .digital-counter {
     background-color: rgba(168, 85, 247, 0.1); /* Podi background color ekak */
 }
 
-:root {
-    /* මෙන්න මේ line එකෙන් තමයි background එකේ gradient වර්ණ ටික හදලා තියෙන්නේ */
-    --cyber-bg: linear-gradient(135deg, #0f0518 0%, #050e14 50%, #02070a 100%);
-    
-    --neon-cyan: #00f3ff;
-    --neon-magenta: #bd00ff;
-    --glow-shadow: 0 0 25px rgba(0, 243, 255, 0.6);
-}
-
 /* Preloader Background සහ Position */
 #preloader {
     position: fixed;
