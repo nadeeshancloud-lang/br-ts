@@ -15,11 +15,10 @@ body#site-wrapper {
   will-change: filter, transform; 
 }
 
-
 /* සයිට් එක සම්පූර්ණයෙන්ම ලෝඩ් වූ පසු පැහැදිලි වන ස්වභාවය */
 body#site-wrapper.loaded {
   filter: blur(0);
-  transform: none; /* scale(1) වෙනුවට 'none' ලෙස වෙනස් කරන ලදී */
+  transform: scale(1);
   opacity: 1;
   overflow: auto; /* ලෝඩ් වූ පසු සාමාන්‍ය පරිදි scroll කළ හැක */
 }
@@ -1612,4 +1611,3 @@ h1, h2, h3, .logo-text, .digital-counter {
     color: #a855f7;
     background-color: rgba(168, 85, 247, 0.1); /* Podi background color ekak */
 }
-
