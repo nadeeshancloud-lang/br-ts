@@ -1685,14 +1685,13 @@ body {
 .image-modal-close:hover { background: var(--danger); border-color: var(--danger); transform: scale(1.1) rotate(90deg); }
 </style>
 </head>
-<!-- 1. දැනට තියෙන සාමාන්‍ය <body> වෙනුවට මේ පේළිය දාන්න -->
 <body>
 
 <div class="login-screen" id="loginScreen">
   <div class="login-container">
     <div class="login-left">
       <div class="login-logo-large">✨</div>
-      <div class="login-headline">Kanishka net-AI.</div>
+      <div class="login-headline">Unlock the Power<br/>of Kanishka net-AI.</div>
       <div class="login-text-filler">
         Experience seamless conversations and creative image generation powered by cutting-edge AI. 
         Whether you are analyzing complex data, generating art, or just chatting, 
@@ -1701,7 +1700,7 @@ body {
         <span style="opacity:0.6; font-family:'JetBrains Mono', monospace; font-size:0.9rem;">Model : 2.00.561</span>
         <br><br>
         Join a community of innovators and creators today. Your data is protected, 
-        your chats are <b>encrypted</b>, and your creativity is limitless.
+        your chats are encrypted, and your creativity is limitless.
       </div>
     </div>
 
@@ -1992,16 +1991,15 @@ const ADMIN_EMAIL = "nadeeshancloud@gmail.com";
 
 // --- HARDCODED FIREBASE CONFIG (INTEGRATED) ---
 const firebaseConfig = {
-  apiKey: "AIzaSyDD8Bo2zmWrtrg-8RVeQGGEMrhCb18h9Hs",
-  authDomain: "amilakanishkanet.firebaseapp.com",
-  projectId: "amilakanishkanet",
-  storageBucket: "amilakanishkanet.firebasestorage.app",
-  messagingSenderId: "954519402127",
-  appId: "1:954519402127:web:4eda1187cdc17ad07262fa"
+  apiKey: "AIzaSyDiMj69T0ZJwTAe5v_HkPUzTemqJ-GS9E4",
+  authDomain: "shkane-chatbot.firebaseapp.com",
+  databaseURL: "https://shkane-chatbot-default-rtdb.firebaseio.com",
+  projectId: "shkane-chatbot",
+  storageBucket: "shkane-chatbot.firebasestorage.app",
+  messagingSenderId: "737920135124",
+  appId: "1:737920135124:web:70bd30ef31aa758c263041"
 };
-        // Firebase Setup
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+
 const STATE = {
   currentUser: null,
   conversations: {},
@@ -3193,5 +3191,6 @@ function init() {
 }
 
 init();
+</script>
 </body>
 </html>
