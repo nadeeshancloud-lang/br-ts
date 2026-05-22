@@ -1555,3 +1555,33 @@ h1, h2, h3, .logo-text, .digital-counter {
     color: #fff;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
+/* Social Links Container - Harasata (Horizontal) pennanna */
+.social-links-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;               /* Icons athara idak (space) */
+    justify-content: flex-end; /* Dakunu paththata align karanna */
+    margin-top: 20px;        /* Uda idan tikak pahalata ganna */
+}
+
+/* Rౌma saha Icon eka hadanna */
+.social-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;             /* Rౌme size eka */
+    height: 40px;
+    border-radius: 50%;      /* Round shape eka */
+    border: 1px solid #333;  /* Aduru border eka */
+    color: #ffffff;          /* Icon eke paata (white) */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 18px;         /* Icon eke size eka */
+}
+
+/* Hover karama wena wenas-kam */
+.social-circle:hover {
+    border-color: #a855f7;   /* Hover karama purple paata */
+    color: #a855f7;
+    background-color: rgba(168, 85, 247, 0.1); /* Podi background color ekak */
+}
