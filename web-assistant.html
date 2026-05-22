@@ -1685,7 +1685,8 @@ body {
 .image-modal-close:hover { background: var(--danger); border-color: var(--danger); transform: scale(1.1) rotate(90deg); }
 </style>
 </head>
-<body>
+<!-- 1. දැනට තියෙන සාමාන්‍ය <body> වෙනුවට මේ පේළිය දාන්න -->
+<body id="site-wrapper">
 
 <div class="login-screen" id="loginScreen">
   <div class="login-container">
@@ -3192,5 +3193,11 @@ function init() {
 
 init();
 </script>
+  <script>
+    window.addEventListener('load', function() {
+      // සයිට් එක ලෝඩ් වෙලා ඉවර වුණ ගමන් 'loaded' කියන class එක එකතු කරනවා
+      document.getElementById('site-wrapper').classList.add('loaded');
+    });
+  </script>
 </body>
 </html>
