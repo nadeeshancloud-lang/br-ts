@@ -5,12 +5,12 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 
 // Firebase Config එක මෙතනටත් ඇතුළත් කරන්න
 const firebaseConfig = {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-    projectId: "YOUR_FIREBASE_PROJECT_ID",
-    storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID_HERE",
-    appId: "YOUR_FIREBASE_APP_ID"
+  apiKey: "AIzaSyDD8Bo2zmWrtrg-8RVeQGGEMrhCb18h9Hs",
+  authDomain: "amilakanishkanet.firebaseapp.com",
+  projectId: "amilakanishkanet",
+  storageBucket: "amilakanishkanet.firebasestorage.app",
+  messagingSenderId: "954519402127",
+  appId: "1:954519402127:web:4eda1187cdc17ad07262fa"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -221,14 +221,13 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 
 // Firebase Config (කලින් පියවරේදී ඔයාට ලැබුණු දත්ත මෙතනට දාන්න)
 const firebaseConfig = {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-    projectId: "YOUR_FIREBASE_PROJECT_ID",
-    storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
-    appId: "YOUR_FIREBASE_APP_ID"
+  apiKey: "AIzaSyDD8Bo2zmWrtrg-8RVeQGGEMrhCb18h9Hs",
+  authDomain: "amilakanishkanet.firebaseapp.com",
+  projectId: "amilakanishkanet",
+  storageBucket: "amilakanishkanet.firebasestorage.app",
+  messagingSenderId: "954519402127",
+  appId: "1:954519402127:web:4eda1187cdc17ad07262fa"
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
