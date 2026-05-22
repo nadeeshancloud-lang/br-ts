@@ -33,32 +33,6 @@
    ============================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* සයිට් එක ලෝඩ් වීමට පෙර පවතින බොඳවුණු ස්වභාවය */
-body#site-wrapper {
-  filter: blur(25px); 
-  transform: scale(1.03); /* සුමට පෙනුමක් සඳහා සයිට් එක පොඩ්ඩක් Zoom වෙලා තියෙන්නේ */
-  opacity: 0;
-  overflow: hidden; /* ලෝඩ් වෙනකම් scroll කිරීම නවත්වයි */
-  background-color: #ffffff; 
-  
-  /* Advanced Animation Transitions - ඉතාමත් සුමටව පැහැදිලි වීමට */
-  transition: 
-    filter 1.5s cubic-bezier(0.25, 1, 0.5, 1), 
-    transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), 
-    opacity 0.8s ease-in-out;
-  
-  /* බ්‍රවුසර් එකේ වේගය (Performance) වැඩි කිරීමට */
-  will-change: filter, transform, opacity; 
-}
-
-/* සයිට් එක සම්පූර්ණයෙන්ම ලෝඩ් වූ පසු පැහැදිලි වන ස්වභාවය */
-body#site-wrapper.loaded {
-  filter: blur(0);
-  transform: scale(1);
-  opacity: 1;
-  overflow: auto; /* ලෝඩ් වූ පසු සාමාන්‍ය පරිදි scroll කළ හැක */
-}
-
 :root {
   --font-display: 'Syne', sans-serif;
   --font-body: 'DM Sans', sans-serif;
