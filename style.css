@@ -1,19 +1,18 @@
-/* සයිට් එක ලෝඩ් වීමට පෙර පවතින බොඳවුණු ස්වභාවය */
+/* සයිට් එක ලෝඩ් වීමට පෙර පවතින බොඳවුණු ස්වභාවය (ඇතුළ පෙනෙන පරිදි) */
 body#site-wrapper {
-  filter: blur(25px); 
-  transform: scale(1.03); /* සුමට පෙනුමක් සඳහා සයිට් එක පොඩ්ඩක් Zoom වෙලා තියෙන්නේ */
-  opacity: 0;
+  filter: blur(15px); /* 25px වැඩි නිසා 15px කළා, එවිට ඇතුළ බොඳ වී පෙනේ */
+  transform: scale(1.03); /* සුමට පෙනුමක් සඳහා Zoom වී ඇත */
+  opacity: 1; /* 0 වෙනුවට 1 දැමීමෙන් සයිට් එක දිස්වීම ආරම්භ වේ */
   overflow: hidden; /* ලෝඩ් වෙනකම් scroll කිරීම නවත්වයි */
-  background-color: #ffffff; 
+  /* background-color: #ffffff; අයින් කළා සයිට් එකේ නියම පාට පේන්න ඕන නිසා */
   
   /* Advanced Animation Transitions - ඉතාමත් සුමටව පැහැදිලි වීමට */
   transition: 
     filter 1.5s cubic-bezier(0.25, 1, 0.5, 1), 
-    transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), 
-    opacity 0.8s ease-in-out;
+    transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
   
   /* බ්‍රවුසර් එකේ වේගය (Performance) වැඩි කිරීමට */
-  will-change: filter, transform, opacity; 
+  will-change: filter, transform; 
 }
 
 /* සයිට් එක සම්පූර්ණයෙන්ම ලෝඩ් වූ පසු පැහැදිලි වන ස්වභාවය */
@@ -23,6 +22,7 @@ body#site-wrapper.loaded {
   opacity: 1;
   overflow: auto; /* ලෝඩ් වූ පසු සාමාන්‍ය පරිදි scroll කළ හැක */
 }
+
 
 /* --- PREMIUM CYBER-DARK DESIGN SYSTEM & VARIABLE REGISTRY --- */
 :root {
