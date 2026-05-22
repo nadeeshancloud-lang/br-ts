@@ -1,330 +1,965 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanishka Net | MP3 Master Downloader</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        :root {
-            --bg-left: #1a0822; /* Dark Purple */
-            --bg-right: #081e22; /* Dark Teal */
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --accent-pink: #e91e63;
-            --accent-cyan: #00e5ff;
-            --text-main: #ffffff;
-            --text-muted: #8b8f9e;
-        }
+<title>Kanishka Net | Quantum MP3 Engine</title>
+ <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/nadeeshancloud-lang/kanishkanet.github.io/main/logonet.ico">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Rajdhani', sans-serif;
-        }
+<style>
 
-        body {
-            background: linear-gradient(135deg, var(--bg-left) 0%, #111 50%, var(--bg-right) 100%);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px 20px;
-        }
+:root{
+    --bg1:#050816;
+    --bg2:#14041f;
+    --bg3:#02141f;
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+    --cyan:#00f0ff;
+    --cyan2:#38bdf8;
+    --pink:#ff008c;
+    --purple:#7c3aed;
 
-        .header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+    --glass:rgba(255,255,255,.05);
+    --border:rgba(255,255,255,.08);
 
-        .header span {
-            color: var(--accent-cyan);
-        }
+    --txt:#ffffff;
+    --muted:#8d95b4;
+}
 
-        .header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-top: 10px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .downloader-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 40px;
-            width: 100%;
-            max-width: 650px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        .input-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
+body{
+    font-family:'Rajdhani',sans-serif;
+    color:var(--txt);
+    overflow-x:hidden;
+    min-height:100vh;
 
-        .input-group input {
-            width: 100%;
-            padding: 18px 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1.1rem;
-            outline: none;
-            transition: 0.3s ease;
-        }
+    background:
+    radial-gradient(circle at top left, rgba(124,58,237,.25), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(0,240,255,.18), transparent 30%),
+    linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
 
-        .input-group input:focus {
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 15px rgba(233, 30, 99, 0.3);
-        }
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
 
-        /* Preview Section */
-        #preview-section {
-            display: none;
-            margin-bottom: 25px;
-            text-align: center;
-            animation: fadeIn 0.5s ease;
-        }
+/* BACKGROUND FX */
 
-        #thumbnail {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-        }
+.bg-grid{
+    position:fixed;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    z-index:-2;
+    mask-image:radial-gradient(circle at center, black 20%, transparent 90%);
+}
 
-        .btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(90deg, var(--accent-pink), var(--accent-cyan));
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-family: 'Orbitron', sans-serif;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.glow1,
+.glow2{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(120px);
+    z-index:-1;
+}
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.4);
-        }
+.glow1{
+    background:rgba(255,0,140,.20);
+    top:-150px;
+    left:-120px;
+}
 
-        .btn:disabled {
-            background: #333;
-            color: #777;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+.glow2{
+    background:rgba(0,240,255,.18);
+    bottom:-180px;
+    right:-120px;
+}
 
-        /* Results & Download */
-        #result-section {
-            display: none;
-            margin-top: 25px;
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 229, 255, 0.05);
-            border: 1px dashed var(--accent-cyan);
-            border-radius: 10px;
-            animation: fadeIn 0.5s ease;
-        }
+/* CARD */
 
-        #error-section {
-            display: none;
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(233, 30, 99, 0.1);
-            border: 1px dashed var(--accent-pink);
-            border-radius: 10px;
-            color: var(--accent-pink);
-            text-align: center;
-        }
+.main-card{
+    width:100%;
+    max-width:1100px;
 
-        .download-btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 14px 30px;
-            background: #fff;
-            color: #000;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
+    background:rgba(7,10,22,.65);
+    border:1px solid rgba(255,255,255,.08);
 
-        .download-btn:hover {
-            background: var(--accent-cyan);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
-        }
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
 
-        .spinner {
-            display: none;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
-        }
+    border-radius:28px;
+    overflow:hidden;
 
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
-    </style>
+    box-shadow:
+    0 0 40px rgba(0,0,0,.5),
+    inset 0 0 0 1px rgba(255,255,255,.03);
+
+    position:relative;
+}
+
+.main-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(135deg, rgba(255,255,255,.06), transparent 40%);
+    pointer-events:none;
+}
+
+/* HEADER */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:28px 34px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.logo{
+    width:62px;
+    height:62px;
+    border-radius:18px;
+
+    background:
+    linear-gradient(135deg,var(--pink),var(--cyan));
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+    font-weight:700;
+
+    box-shadow:
+    0 0 30px rgba(0,240,255,.35);
+}
+
+.brand h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.8rem;
+    letter-spacing:1px;
+}
+
+.brand span{
+    color:var(--cyan);
+}
+
+.brand p{
+    color:var(--muted);
+    margin-top:4px;
+}
+
+/* CONTENT */
+
+.content{
+    display:grid;
+    grid-template-columns:420px 1fr;
+}
+
+@media(max-width:930px){
+    .content{
+        grid-template-columns:1fr;
+    }
+}
+
+/* LEFT */
+
+.left-panel{
+    padding:35px;
+    border-right:1px solid rgba(255,255,255,.06);
+}
+
+@media(max-width:930px){
+    .left-panel{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.06);
+    }
+}
+
+.thumb-box{
+    width:100%;
+    aspect-ratio:16/9;
+
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+
+    background:#0b1020;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.thumb-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.thumb-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(to top, rgba(0,0,0,.75), transparent 50%);
+}
+
+.live-badge{
+    position:absolute;
+    top:15px;
+    left:15px;
+
+    background:rgba(0,0,0,.6);
+    border:1px solid rgba(255,255,255,.15);
+
+    padding:8px 14px;
+    border-radius:999px;
+
+    font-size:.9rem;
+    color:var(--cyan);
+
+    backdrop-filter:blur(10px);
+}
+
+.video-meta{
+    margin-top:24px;
+}
+
+.video-title{
+    font-size:1.5rem;
+    line-height:1.3;
+    font-weight:700;
+}
+
+.channel{
+    margin-top:10px;
+    color:var(--cyan);
+    font-size:1rem;
+}
+
+.stats{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:20px;
+}
+
+.stat-card{
+    flex:1;
+    min-width:100px;
+
+    padding:14px;
+    border-radius:16px;
+
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.07);
+
+    text-align:center;
+}
+
+.stat-card h3{
+    color:var(--cyan);
+    font-size:1.2rem;
+}
+
+.stat-card p{
+    color:var(--muted);
+    font-size:.95rem;
+    margin-top:4px;
+}
+
+/* RIGHT */
+
+.right-panel{
+    padding:40px;
+}
+
+.section-title{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.3rem;
+    margin-bottom:12px;
+}
+
+.section-sub{
+    color:var(--muted);
+    margin-bottom:30px;
+}
+
+/* INPUT */
+
+.input-wrap{
+    position:relative;
+    margin-bottom:25px;
+}
+
+.input-wrap input{
+    width:100%;
+    height:70px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+
+    padding:0 25px;
+
+    color:#fff;
+    font-size:1.1rem;
+
+    outline:none;
+
+    transition:.35s;
+}
+
+.input-wrap input:focus{
+    border-color:var(--cyan);
+
+    box-shadow:
+    0 0 0 4px rgba(0,240,255,.08),
+    0 0 25px rgba(0,240,255,.2);
+}
+
+.input-wrap::before{
+    content:'YOUTUBE URL';
+    position:absolute;
+    top:-11px;
+    left:20px;
+
+    background:#0c1020;
+
+    padding:0 10px;
+
+    color:var(--cyan);
+    font-size:.85rem;
+    letter-spacing:1px;
+}
+
+/* QUALITY */
+
+.quality-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.quality{
+    padding:18px;
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.03);
+
+    cursor:pointer;
+    transition:.35s;
+    text-align:center;
+}
+
+.quality:hover{
+    transform:translateY(-4px);
+    border-color:var(--cyan);
+}
+
+.quality.active{
+    background:
+    linear-gradient(135deg, rgba(0,240,255,.15), rgba(255,0,140,.15));
+
+    border-color:var(--cyan);
+
+    box-shadow:
+    0 0 25px rgba(0,240,255,.2);
+}
+
+.quality h3{
+    font-size:1.2rem;
+}
+
+.quality p{
+    margin-top:5px;
+    color:var(--muted);
+}
+
+/* BUTTON */
+
+.download-btn{
+    width:100%;
+    height:72px;
+
+    border:none;
+    border-radius:22px;
+
+    position:relative;
+    overflow:hidden;
+
+    cursor:pointer;
+
+    background:
+    linear-gradient(135deg,var(--pink),var(--cyan));
+
+    color:#fff;
+
+    font-family:'Orbitron',sans-serif;
+    font-size:1rem;
+    letter-spacing:1px;
+
+    transition:.4s;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:14px;
+
+    box-shadow:
+    0 0 30px rgba(0,240,255,.25);
+}
+
+.download-btn::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+
+    transition:.8s;
+}
+
+.download-btn:hover::before{
+    left:100%;
+}
+
+.download-btn:hover{
+    transform:translateY(-3px) scale(1.01);
+
+    box-shadow:
+    0 0 45px rgba(0,240,255,.45),
+    0 0 80px rgba(255,0,140,.18);
+}
+
+.download-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* LOADER */
+
+.loader{
+    width:22px;
+    height:22px;
+    border:3px solid rgba(255,255,255,.3);
+    border-top-color:#fff;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    display:none;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* RESULT */
+
+.result{
+    margin-top:28px;
+    display:none;
+}
+
+.result-box{
+    padding:24px;
+    border-radius:22px;
+
+    background:
+    linear-gradient(135deg,
+    rgba(0,240,255,.08),
+    rgba(255,0,140,.08));
+
+    border:1px solid rgba(0,240,255,.2);
+
+    animation:show .5s ease;
+}
+
+.result-box h2{
+    font-family:'Orbitron',sans-serif;
+    margin-bottom:12px;
+}
+
+.direct-btn{
+    margin-top:18px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:12px;
+
+    height:60px;
+    width:100%;
+
+    border-radius:18px;
+
+    background:#fff;
+    color:#000;
+
+    font-weight:700;
+    text-decoration:none;
+
+    transition:.35s;
+}
+
+.direct-btn:hover{
+    background:var(--cyan);
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 30px rgba(0,240,255,.5);
+}
+
+#error{
+    display:none;
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:rgba(255,0,140,.08);
+
+    border:1px solid rgba(255,0,140,.2);
+
+    color:#ff7ab5;
+}
+
+@keyframes show{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.cyber-line{
+    height:1px;
+    background:
+    linear-gradient(to right,
+    transparent,
+    rgba(0,240,255,.5),
+    transparent);
+    margin:25px 0;
+}
+
+.footer{
+    margin-top:20px;
+    color:var(--muted);
+    font-size:.95rem;
+}
+.logo{
+    width:62px;
+    height:62px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(135deg,var(--pink),var(--cyan));
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+    0 0 30px rgba(0,240,255,.35);
+
+    overflow:hidden;
+
+    padding:6px;
+}
+
+.logo-icon{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+
+    filter:
+    drop-shadow(0 0 10px rgba(0,240,255,.6));
+}
+</style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Kanishka <span>Net</span></h1>
-        <p>Pro MP3 Converter Hub</p>
+<div class="bg-grid"></div>
+<div class="glow1"></div>
+<div class="glow2"></div>
+
+<div class="main-card">
+
+    <div class="topbar">
+
+<div class="brand">
+
+    <div class="logo">
+
+        <img 
+        src="https://raw.githubusercontent.com/nadeeshancloud-lang/br-ts/a484a758a8bbed79d4c0bfd19a01c9f9ab5ddb78/ChatGPT%20Image%20May%2021%2C%202026%2C%2010_44_21%20PM.png" 
+        alt="Logo" 
+        class="logo-icon">
+
+    </div>
+            <div>
+                <h1>Kanishka <span>Net</span></h1>
+                <p>Quantum MP3 Transmission System</p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="downloader-card">
-        <div class="input-group">
-            <input type="url" id="yt-url" placeholder="Paste YouTube Video Link Here..." autocomplete="off">
+    <div class="content">
+
+        <!-- LEFT -->
+
+        <div class="left-panel">
+
+            <div class="thumb-box">
+                <img id="thumbnail" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg">
+
+                <div class="thumb-overlay"></div>
+
+                <div class="live-badge">
+                    AI AUDIO ENGINE
+                </div>
+            </div>
+
+            <div class="video-meta">
+
+                <h2 class="video-title" id="video-title">
+                    Waiting For YouTube Link...
+                </h2>
+
+                <div class="channel" id="channel-name">
+                    No Channel Loaded
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <h3 id="duration">0:00</h3>
+                        <p>Duration</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3 id="quality-show">320K</h3>
+                        <p>Audio</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>FAST</h3>
+                        <p>Speed</p>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div id="preview-section">
-            <img id="thumbnail" src="" alt="Video Thumbnail">
-            <p style="color: var(--accent-cyan); margin-top: 10px; font-size: 1rem;">Video Detected. Ready to Convert.</p>
+        <!-- RIGHT -->
+
+        <div class="right-panel">
+
+            <h2 class="section-title">
+                ULTRA MP3 DOWNLOADER
+            </h2>
+
+            <p class="section-sub">
+                Instant AI Powered High Speed YouTube Audio Conversion System.
+            </p>
+
+            <div class="input-wrap">
+                <input
+                type="url"
+                id="yt-url"
+                placeholder="https://youtube.com/watch?v=..."
+                autocomplete="off">
+            </div>
+
+            <div class="quality-grid">
+
+                <div class="quality active" data-quality="320">
+                    <h3>320K</h3>
+                    <p>Ultra HQ</p>
+                </div>
+
+                <div class="quality" data-quality="192">
+                    <h3>192K</h3>
+                    <p>Balanced</p>
+                </div>
+
+                <div class="quality" data-quality="128">
+                    <h3>128K</h3>
+                    <p>Fast Mode</p>
+                </div>
+
+            </div>
+
+            <button class="download-btn" id="convert-btn">
+
+                <span id="btn-text">
+                    INITIALIZE DOWNLOAD
+                </span>
+
+                <div class="loader" id="loader"></div>
+
+            </button>
+
+            <div class="result" id="result">
+
+                <div class="result-box">
+
+                    <h2>
+                        DOWNLOAD READY
+                    </h2>
+
+                    <p style="color:var(--muted)">
+                        Quantum audio transmission successfully generated.
+                    </p>
+
+                    <a
+                    href="#"
+                    id="download-link"
+                    target="_blank"
+                    class="direct-btn">
+
+                        DOWNLOAD MP3
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div id="error"></div>
+
+            <div class="cyber-line"></div>
+
+            <div class="footer">
+                © 2026 Kanishka Net Quantum Audio Labs
+            </div>
+
         </div>
 
-        <button class="btn" id="convert-btn">
-            <span id="btn-text">Convert to MP3</span>
-            <div class="spinner" id="spinner"></div>
-        </button>
-
-        <div id="error-section">
-            <p id="error-text">Failed to connect or invalid URL.</p>
-        </div>
-
-        <div id="result-section">
-            <h3 style="color: #fff; font-family: 'Orbitron', sans-serif;">Conversion Complete!</h3>
-            <a href="#" id="download-link" class="download-btn" target="_blank" rel="noopener noreferrer">Direct Download MP3</a>
-        </div>
     </div>
 
-    <script>
-        const urlInput = document.getElementById('yt-url');
-        const previewSection = document.getElementById('preview-section');
-        const thumbnailImg = document.getElementById('thumbnail');
-        const convertBtn = document.getElementById('convert-btn');
-        const btnText = document.getElementById('btn-text');
-        const spinner = document.getElementById('spinner');
-        const resultSection = document.getElementById('result-section');
-        const errorSection = document.getElementById('error-section');
-        const errorText = document.getElementById('error-text');
-        const downloadLink = document.getElementById('download-link');
+</div>
 
-        // Extract Video ID from URL to show Thumbnail instantly
-        function extractVideoID(url) {
-            let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
-            return match ? match[1] : null;
+<script>
+
+const ytInput = document.getElementById('yt-url');
+
+const thumbnail = document.getElementById('thumbnail');
+const titleEl = document.getElementById('video-title');
+const channelEl = document.getElementById('channel-name');
+const durationEl = document.getElementById('duration');
+
+const qualities = document.querySelectorAll('.quality');
+const qualityShow = document.getElementById('quality-show');
+
+const convertBtn = document.getElementById('convert-btn');
+const btnText = document.getElementById('btn-text');
+const loader = document.getElementById('loader');
+
+const result = document.getElementById('result');
+const downloadLink = document.getElementById('download-link');
+
+const errorBox = document.getElementById('error');
+
+let selectedQuality = "320";
+
+qualities.forEach(q => {
+
+    q.addEventListener('click', ()=>{
+
+        qualities.forEach(x=>x.classList.remove('active'));
+
+        q.classList.add('active');
+
+        selectedQuality = q.dataset.quality;
+
+        qualityShow.innerText = selectedQuality + "K";
+    });
+
+});
+
+/* VIDEO ID */
+
+function getVideoId(url){
+
+    const reg =
+    /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|embed)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+
+    const match = url.match(reg);
+
+    return match ? match[1] : null;
+}
+
+/* FETCH YOUTUBE DATA */
+
+async function fetchVideoData(videoId){
+
+    try{
+
+        const res = await fetch(
+        `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`
+        );
+
+        const data = await res.json();
+
+        if(data.title){
+
+            titleEl.innerText = data.title;
+
+            channelEl.innerText =
+            "Channel : " + data.author_name;
+
+            thumbnail.src =
+            `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
         }
 
-        // Listen for user pasting or typing the link
-        urlInput.addEventListener('input', () => {
-            const val = urlInput.value.trim();
-            const vidID = extractVideoID(val);
-            
-            if (vidID) {
-                // Show high quality thumbnail
-                thumbnailImg.src = `https://img.youtube.com/vi/${vidID}/hqdefault.jpg`;
-                previewSection.style.display = 'block';
-                resultSection.style.display = 'none';
-                errorSection.style.display = 'none';
-            } else {
-                previewSection.style.display = 'none';
-            }
-        });
+    }catch(err){
+        console.log(err);
+    }
+}
 
-        // Conversion Process using Cobalt API
-        convertBtn.addEventListener('click', async () => {
-            const ytLink = urlInput.value.trim();
-            if(!ytLink) {
-                showError("Please paste a valid YouTube Link first.");
-                return;
-            }
+ytInput.addEventListener('input', ()=>{
 
-            // UI Loading State
-            convertBtn.disabled = true;
-            btnText.innerText = "Processing Algorithm...";
-            spinner.style.display = "block";
-            resultSection.style.display = "none";
-            errorSection.style.display = "none";
+    const videoId = getVideoId(ytInput.value.trim());
 
-            try {
-                // Cobalt API Config
-                const apiUrl = 'https://api.cobalt.tools/api/json';
-                const payload = {
-                    url: ytLink,
-                    isAudioOnly: true, // We only want MP3/Audio
-                    aFormat: "mp3",    // Force MP3 format
-                };
+    if(videoId){
 
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
+        fetchVideoData(videoId);
 
-                const data = await response.json();
+        durationEl.innerText = "LIVE";
 
-                // Cobalt returns 'url' directly on success
-                if (response.ok && data.url) {
-                    downloadLink.href = data.url;
-                    resultSection.style.display = "block";
-                } else if (data.text) {
-                    // Cobalt returns error text in 'text' key
-                    throw new Error(data.text);
-                } else {
-                    throw new Error("Failed to generate download link.");
-                }
+    }
 
-            } catch (error) {
-                console.error("Conversion Error:", error);
-                showError("Error: " + (error.message || "Failed to connect to conversion server."));
-            } finally {
-                // Reset Button
-                convertBtn.disabled = false;
-                btnText.innerText = "Convert to MP3";
-                spinner.style.display = "none";
-            }
-        });
+});
 
-        function showError(msg) {
-            errorText.innerText = msg;
-            errorSection.style.display = "block";
+/* CONVERT */
+
+convertBtn.addEventListener('click', async ()=>{
+
+    const url = ytInput.value.trim();
+
+    if(!url){
+
+        showError("Paste valid YouTube URL.");
+        return;
+    }
+
+    errorBox.style.display = "none";
+    result.style.display = "none";
+
+    convertBtn.disabled = true;
+
+    btnText.innerText = "PROCESSING AUDIO";
+    loader.style.display = "block";
+
+    try{
+
+        const api =
+        `https://api-dark-shan-yt.koyeb.app/download/ytmp3-v2?url=${encodeURIComponent(url)}&quality=${selectedQuality}`;
+
+        const response = await fetch(api);
+
+        const data = await response.json();
+
+        console.log(data);
+
+        /*
+        API RESPONSE SUPPORT
+        */
+
+        const mp3 =
+        data.download ||
+        data.url ||
+        data.result?.download ||
+        data.result?.url;
+
+        if(mp3){
+
+            downloadLink.href = mp3;
+
+            result.style.display = "block";
+
+        }else{
+
+            throw new Error(
+            data.message ||
+            "Download link generation failed."
+            );
+
         }
-    </script>
+
+    }catch(err){
+
+        console.log(err);
+
+        showError(
+        err.message ||
+        "Server connection failed."
+        );
+
+    }finally{
+
+        convertBtn.disabled = false;
+
+        btnText.innerText = "INITIALIZE DOWNLOAD";
+
+        loader.style.display = "none";
+
+    }
+
+});
+
+/* ERROR */
+
+function showError(msg){
+
+    errorBox.style.display = "block";
+
+    errorBox.innerText = msg;
+}
+
+</script>
+
 </body>
 </html>
