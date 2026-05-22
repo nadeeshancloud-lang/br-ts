@@ -1587,3 +1587,156 @@ h1, h2, h3, .logo-text, .digital-counter {
     background-color: rgba(168, 85, 247, 0.1); /* Podi background color ekak */
 }
 
+/* Cyberpunk Theme Colors */
+:root {
+    --cyber-bg: linear-gradient(135deg, #0f0518 0%, #050e14 50%, #02070a 100%);
+    --neon-cyan: #00f3ff;
+    --neon-magenta: #bd00ff;
+    --glow-shadow: 0 0 25px rgba(0, 243, 255, 0.6);
+}
+
+/* Preloader මුළු පිටුවම වැසෙන සේ සැකසීම */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--cyber-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    overflow: hidden;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+}
+
+/* CRT Screen එකක් වැනි Scanlines Effect එක (Advanced Tech Look) */
+#preloader::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+}
+
+/* හැඩය දියවෙමින් වර්ණ මාරු වන ප්‍රධාන Animation එක */
+.melting-shape {
+    width: 75px;
+    height: 75px;
+    background: var(--neon-cyan);
+    position: relative;
+    border-radius: 8px;
+    box-shadow: var(--glow-shadow);
+    animation: liquidMorph 3.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes liquidMorph {
+    0% {
+        border-radius: 8px;
+        transform: scale(1) rotate(0deg);
+        background: var(--neon-cyan);
+        filter: drop-shadow(0 0 15px var(--neon-cyan));
+    }
+    25% {
+        /* දියවෙන ද්‍රව අවස්ථාව */
+        border-radius: 45% 55% 35% 65% / 45% 35% 65% 55%;
+        transform: scale(1.15) rotate(90deg) translateY(10px);
+        background: var(--neon-magenta);
+        filter: drop-shadow(0 0 25px var(--neon-magenta));
+    }
+    50% {
+        /* රවුම් අවස්ථාව */
+        border-radius: 50%;
+        transform: scale(0.9) rotate(180deg) translateY(0px);
+        background: #00bcff;
+        filter: drop-shadow(0 0 15px #00bcff);
+    }
+    75% {
+        /* නැවත හැඩගැසෙන ද්‍රව අවස්ථාව */
+        border-radius: 65% 35% 55% 45% / 35% 55% 45% 65%;
+        transform: scale(1.1) rotate(270deg) translateY(-8px);
+        background: var(--neon-magenta);
+        filter: drop-shadow(0 0 25px var(--neon-magenta));
+    }
+    100% {
+        border-radius: 8px;
+        transform: scale(1) rotate(360deg);
+        background: var(--neon-cyan);
+        filter: drop-shadow(0 0 15px var(--neon-cyan));
+    }
+}
+
+/* වටෙන් කැරකෙන Advanced Tech Ring එක */
+.tech-ring {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border: 2px dashed rgba(0, 243, 255, 0.3);
+    border-top: 2px solid var(--neon-cyan);
+    border-bottom: 2px solid var(--neon-magenta);
+    border-radius: 50%;
+    top: -28px;
+    animation: rotateRing 4s linear infinite;
+}
+
+@keyframes rotateRing {
+    0% { transform: rotate(0deg); filter: hue-rotate(0deg); }
+    100% { transform: rotate(360deg); filter: hue-rotate(360deg); }
+}
+
+/* යටින් ඇති Neon Shadow එක */
+.cyber-shadow {
+    width: 55px;
+    height: 6px;
+    background: rgba(0, 243, 255, 0.2);
+    border-radius: 50%;
+    margin-top: 45px;
+    filter: blur(2px);
+    animation: cyberShadowPulse 3.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes cyberShadowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; background: rgba(0, 243, 255, 0.3); }
+    25%, 75% { transform: scale(1.4); opacity: 0.4; background: rgba(189, 0, 255, 0.3); }
+    50% { transform: scale(0.8); opacity: 0.9; background: rgba(0, 188, 255, 0.4); }
+}
+
+/* වෙබ් අඩවියේ ඇති Counter එකට මැච් වෙන අකුරු මෝස්තරය */
+.loading-text {
+    margin-top: 30px;
+    font-size: 0.85rem;
+    font-family: 'Courier New', Courier, monospace; /* Tech / Terminal font */
+    letter-spacing: 5px;
+    font-weight: bold;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+    display: flex;
+    align-items: center;
+}
+
+/* Loading තිත් 3 සජීවීකරණය */
+.dots span {
+    display: inline-block;
+    animation: techDots 1.5s infinite;
+    opacity: 0.2;
+}
+.dots span:nth-child(1) { animation-delay: 0s; }
+.dots span:nth-child(2) { animation-delay: 0.2s; color: var(--neon-magenta); }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes techDots {
+    0%, 100% { transform: translateY(0); opacity: 0.2; }
+    50% { transform: translateY(-4px); opacity: 1; text-shadow: 0 0 8px var(--neon-cyan); }
+}
