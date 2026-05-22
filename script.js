@@ -262,10 +262,11 @@ window.logoutUser = function() {
 window.addEventListener('load', function() {
     // Page එක සම්පූර්ණයෙන් load වූ පසු Preloader එක ඉවත් කිරීම
     const preloader = document.getElementById('preloader');
-    
-    // සුළු ප්‍රමාදයක් (delay එකක්) අවශ්‍ය නම් මෙතනින් වෙනස් කළ හැක
+
+window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
     setTimeout(function() {
         preloader.style.opacity = '0';
         preloader.style.visibility = 'hidden';
-    }, 500); // තත්පර 0.5 කට පසු fade වෙන්න පටන් ගනී
+    }, 600); // 0.6s delay එකකින් පසු smooth ලෙස මැකී යයි.
 });
