@@ -15,10 +15,11 @@ body#site-wrapper {
   will-change: filter, transform; 
 }
 
+
 /* සයිට් එක සම්පූර්ණයෙන්ම ලෝඩ් වූ පසු පැහැදිලි වන ස්වභාවය */
 body#site-wrapper.loaded {
   filter: blur(0);
-  transform: scale(1);
+  transform: none; /* scale(1) වෙනුවට 'none' ලෙස වෙනස් කරන ලදී */
   opacity: 1;
   overflow: auto; /* ලෝඩ් වූ පසු සාමාන්‍ය පරිදි scroll කළ හැක */
 }
