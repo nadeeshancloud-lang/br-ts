@@ -834,30 +834,60 @@ function getVideoId(url){
 
 async function fetchVideoData(videoId){
 
-    try{
+  try {
+        const response = await fetch("https://api.cobalt.tools/", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                url: url,
+                downloadMode: "audio", // නව API රීතිවලට අනුව
+                audioFormat: "mp3"     // අනිවාර්ය MP3 format එක
+            })
+        });
 
-        const res = await fetch(
-        `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`
-        );
+        const data = await response.json();
 
-        const data = await res.json();
+        // Advanced API Response Handling
+        let downloadUrl = "";
 
-        if(data.title){
-
-            titleEl.innerText = data.title;
-
-            channelEl.innerText =
-            "Channel : " + data.author_name;
-
-            thumbnail.src =
-            `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-
+        // API ප්‍රතිචාරයේ ව්‍යුහය අනුව නිවැරදි URL එක ලබා ගැනීම
+        if (data.url) {
+            downloadUrl = data.url;
+        } else if ((data.status === "redirect" || data.status === "stream") && data.url) {
+            downloadUrl = data.url;
+        } else if (data.status === "picker" && data.audio) {
+            downloadUrl = data.audio; // සමහර සබැඳි වලින් audio පමණක් වෙන් කිරීමේදී
         }
 
-    }catch(err){
-        console.log(err);
+        // URL එක සාර්ථකව ලැබුණි නම්
+        if (downloadUrl) {
+            downloadLink.href = downloadUrl;
+            result.style.display = "block";
+        } else {
+            // API එකෙන් දෝෂයක් ආවොත් එය හඳුනා ගැනීම
+            throw new Error(data.text || data.message || "Download link generation failed. Please check the URL.");
+        }
+
+    } catch (err) {
+        console.error("API Error: ", err);
+        
+        // දෝෂය පරිශීලකයාට පැහැදිලිව පෙන්වීම
+        errorBox.innerText = err.message === "Failed to fetch" 
+            ? "Network error! Please check your internet connection." 
+            : err.message;
+            
+        errorBox.style.display = "block";
+        result.style.display = "none";
+        
+    } finally {
+        // ක්‍රියාවලිය අවසන් වූ පසු Button එක හා Loader එක යථා තත්ත්වයට පත් කිරීම
+        btnText.innerText = "CONVERT"; // ඔබගේ button එකේ මුල් නම අවශ්‍ය නම් මෙතැනින් වෙනස් කරන්න
+        loader.style.display = "none";
+        convertBtn.disabled = false;
     }
-}
 
 ytInput.addEventListener('input', ()=>{
 
