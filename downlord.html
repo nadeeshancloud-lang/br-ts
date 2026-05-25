@@ -587,16 +587,23 @@ convertBtn.addEventListener('click', async ()=>{
             },
             body: JSON.stringify({
                 url: url,
-                downloadMode: "audio", // Get audio only
-                audioFormat: "mp3"     // Format as mp3
+                downloadMode: "audio", 
+                audioFormat: "mp3",
+                audioBitrate: selectedQuality // තෝරාගත් Quality එක (320, 192, 128) සර්වර් එකට යැවීම
             })
         });
 
         const data = await response.json();
+        console.log("Cobalt API Response:", data); // Browser Console එකේ බලාගන්න ලොග් එකක්
+
+        // සර්වර් එකෙන් කෙලින්ම Error එකක් ආවොත්
+        if (data.status === "error") {
+            throw new Error(data.text || "Cobalt API error occurred.");
+        }
 
         let downloadUrl = "";
 
-        // Advanced API Response Handling
+        // API Response එක පරීක්ෂා කිරීම
         if (data.url) {
             downloadUrl = data.url;
         } else if ((data.status === "redirect" || data.status === "stream") && data.url) {
@@ -606,25 +613,24 @@ convertBtn.addEventListener('click', async ()=>{
         }
 
         if (downloadUrl) {
-            // Success
+            // සාර්ථකයි
             downloadLink.href = downloadUrl;
             result.style.display = "block";
         } else {
-            // Failed to get URL
-            throw new Error(data.text || data.message || "Download link generation failed. Please check the URL.");
+            throw new Error("Download URL could not be extracted from the server response.");
         }
 
     } catch(err) {
         console.error("API Error: ", err);
-        showError(err.message === "Failed to fetch" ? "Network error! Please check your internet connection." : err.message);
+        // සර්වර් එකෙන් ආපු නියමම වැරැද්ද (උදා: Rate Limit) Screen එකේ පෙන්වීම
+        showError("Error: " + err.message);
     } finally {
-        // Reset Button UI
+        // බටන් එක යථා තත්ත්වයට පත් කිරීම
         convertBtn.disabled = false;
         btnText.innerText = "INITIALIZE DOWNLOAD";
         loader.style.display = "none";
     }
 });
-
 </script>
 
 </body>
