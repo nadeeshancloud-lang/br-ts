@@ -26,18 +26,27 @@
     --muted:#8d95b4;
 }
 
-*{ margin:0; padding:0; box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
 
 body{
     font-family:'Rajdhani',sans-serif;
     color:var(--txt);
     overflow-x:hidden;
     min-height:100vh;
+
     background:
     radial-gradient(circle at top left, rgba(124,58,237,.25), transparent 30%),
     radial-gradient(circle at bottom right, rgba(0,240,255,.18), transparent 30%),
     linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+
     display:flex;
     justify-content:center;
     align-items:center;
@@ -46,59 +55,171 @@ body{
 
 /* BACKGROUND FX */
 .bg-grid{
-    position:fixed; inset:0;
-    background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size:40px 40px; z-index:-2;
+    position:fixed;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    z-index:-2;
     mask-image:radial-gradient(circle at center, black 20%, transparent 90%);
 }
 
-.glow1, .glow2{ position:fixed; width:500px; height:500px; border-radius:50%; filter:blur(120px); z-index:-1; }
-.glow1{ background:rgba(255,0,140,.20); top:-150px; left:-120px; }
-.glow2{ background:rgba(0,240,255,.18); bottom:-180px; right:-120px; }
+.glow1, .glow2{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(120px);
+    z-index:-1;
+}
+
+.glow1{
+    background:rgba(255,0,140,.20);
+    top:-150px;
+    left:-120px;
+}
+
+.glow2{
+    background:rgba(0,240,255,.18);
+    bottom:-180px;
+    right:-120px;
+}
 
 /* CARD */
 .main-card{
-    width:100%; max-width:1100px;
-    background:rgba(7,10,22,.65); border:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px);
-    border-radius:28px; overflow:hidden;
+    width:100%;
+    max-width:1100px;
+    background:rgba(7,10,22,.65);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
+    border-radius:28px;
+    overflow:hidden;
     box-shadow: 0 0 40px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.03);
     position:relative;
 }
+
 .main-card::before{
-    content:''; position:absolute; inset:0;
-    background: linear-gradient(135deg, rgba(255,255,255,.06), transparent 40%); pointer-events:none;
+    content:'';
+    position:absolute;
+    inset:0;
+    background: linear-gradient(135deg, rgba(255,255,255,.06), transparent 40%);
+    pointer-events:none;
 }
 
 /* HEADER */
-.topbar{ display:flex; justify-content:space-between; align-items:center; padding:28px 34px; border-bottom:1px solid rgba(255,255,255,.06); }
-.brand{ display:flex; align-items:center; gap:18px; }
-.logo{ width:62px; height:62px; border-radius:18px; background: linear-gradient(135deg,var(--pink),var(--cyan)); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; box-shadow: 0 0 30px rgba(0,240,255,.35); overflow:hidden; padding:6px; }
-.logo-icon{ width:100%; height:100%; object-fit:contain; filter: drop-shadow(0 0 10px rgba(0,240,255,.6)); }
-.brand h1{ font-family:'Orbitron',sans-serif; font-size:1.8rem; letter-spacing:1px; }
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:28px 34px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.logo{
+    width:62px;
+    height:62px;
+    border-radius:18px;
+    background: linear-gradient(135deg,var(--pink),var(--cyan));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:700;
+    box-shadow: 0 0 30px rgba(0,240,255,.35);
+    overflow:hidden;
+    padding:6px;
+}
+
+.logo-icon{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    filter: drop-shadow(0 0 10px rgba(0,240,255,.6));
+}
+
+.brand h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.8rem;
+    letter-spacing:1px;
+}
+
 .brand span{ color:var(--cyan); }
 .brand p{ color:var(--muted); margin-top:4px; }
 
 /* CONTENT */
-.content{ display:grid; grid-template-columns:420px 1fr; }
+.content{
+    display:grid;
+    grid-template-columns:420px 1fr;
+}
 
 @media(max-width:930px){
     .content{ grid-template-columns:1fr; }
-    .left-panel{ border-right:none; border-bottom:1px solid rgba(255,255,255,.06); }
+    .left-panel{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.06);
+    }
 }
 
 /* LEFT */
-.left-panel{ padding:35px; border-right:1px solid rgba(255,255,255,.06); }
-.thumb-box{ width:100%; aspect-ratio:16/9; border-radius:22px; overflow:hidden; position:relative; background:#0b1020; border:1px solid rgba(255,255,255,.08); }
+.left-panel{
+    padding:35px;
+    border-right:1px solid rgba(255,255,255,.06);
+}
+
+.thumb-box{
+    width:100%;
+    aspect-ratio:16/9;
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+    background:#0b1020;
+    border:1px solid rgba(255,255,255,.08);
+}
+
 .thumb-box img{ width:100%; height:100%; object-fit:cover; }
-.thumb-overlay{ position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,.75), transparent 50%); }
-.live-badge{ position:absolute; top:15px; left:15px; background:rgba(0,0,0,.6); border:1px solid rgba(255,255,255,.15); padding:8px 14px; border-radius:999px; font-size:.9rem; color:var(--cyan); backdrop-filter:blur(10px); }
+
+.thumb-overlay{
+    position:absolute;
+    inset:0;
+    background: linear-gradient(to top, rgba(0,0,0,.75), transparent 50%);
+}
+
+.live-badge{
+    position:absolute;
+    top:15px;
+    left:15px;
+    background:rgba(0,0,0,.6);
+    border:1px solid rgba(255,255,255,.15);
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:.9rem;
+    color:var(--cyan);
+    backdrop-filter:blur(10px);
+}
+
 .video-meta{ margin-top:24px; }
 .video-title{ font-size:1.5rem; line-height:1.3; font-weight:700; }
 .channel{ margin-top:10px; color:var(--cyan); font-size:1rem; }
 
 .stats{ display:flex; flex-wrap:wrap; gap:14px; margin-top:20px; }
-.stat-card{ flex:1; min-width:100px; padding:14px; border-radius:16px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); text-align:center; }
+.stat-card{
+    flex:1;
+    min-width:100px;
+    padding:14px;
+    border-radius:16px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.07);
+    text-align:center;
+}
+
 .stat-card h3{ color:var(--cyan); font-size:1.2rem; }
 .stat-card p{ color:var(--muted); font-size:.95rem; margin-top:4px; }
 
@@ -109,40 +230,171 @@ body{
 
 /* INPUT */
 .input-wrap{ position:relative; margin-bottom:25px; }
-.input-wrap input{ width:100%; height:70px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:0 25px; color:#fff; font-size:1.1rem; outline:none; transition:.35s; }
-.input-wrap input:focus{ border-color:var(--cyan); box-shadow: 0 0 0 4px rgba(0,240,255,.08), 0 0 25px rgba(0,240,255,.2); }
-.input-wrap::before{ content:'YOUTUBE URL'; position:absolute; top:-11px; left:20px; background:#0c1020; padding:0 10px; color:var(--cyan); font-size:.85rem; letter-spacing:1px; }
+.input-wrap input{
+    width:100%;
+    height:70px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:0 25px;
+    color:#fff;
+    font-size:1.1rem;
+    outline:none;
+    transition:.35s;
+}
+
+.input-wrap input:focus{
+    border-color:var(--cyan);
+    box-shadow: 0 0 0 4px rgba(0,240,255,.08), 0 0 25px rgba(0,240,255,.2);
+}
+
+.input-wrap::before{
+    content:'YOUTUBE URL';
+    position:absolute;
+    top:-11px;
+    left:20px;
+    background:#0c1020;
+    padding:0 10px;
+    color:var(--cyan);
+    font-size:.85rem;
+    letter-spacing:1px;
+}
 
 /* QUALITY */
-.quality-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-bottom:30px; }
-.quality{ padding:18px; border-radius:18px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); cursor:pointer; transition:.35s; text-align:center; }
+.quality-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.quality{
+    padding:18px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);
+    cursor:pointer;
+    transition:.35s;
+    text-align:center;
+}
+
 .quality:hover{ transform:translateY(-4px); border-color:var(--cyan); }
-.quality.active{ background: linear-gradient(135deg, rgba(0,240,255,.15), rgba(255,0,140,.15)); border-color:var(--cyan); box-shadow: 0 0 25px rgba(0,240,255,.2); }
+.quality.active{
+    background: linear-gradient(135deg, rgba(0,240,255,.15), rgba(255,0,140,.15));
+    border-color:var(--cyan);
+    box-shadow: 0 0 25px rgba(0,240,255,.2);
+}
+
 .quality h3{ font-size:1.2rem; }
 .quality p{ margin-top:5px; color:var(--muted); }
 
 /* BUTTON */
-.download-btn{ width:100%; height:72px; border:none; border-radius:22px; position:relative; overflow:hidden; cursor:pointer; background: linear-gradient(135deg,var(--pink),var(--cyan)); color:#fff; font-family:'Orbitron',sans-serif; font-size:1rem; letter-spacing:1px; transition:.4s; display:flex; justify-content:center; align-items:center; gap:14px; box-shadow: 0 0 30px rgba(0,240,255,.25); }
-.download-btn::before{ content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); transition:.8s; }
+.download-btn{
+    width:100%;
+    height:72px;
+    border:none;
+    border-radius:22px;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    background: linear-gradient(135deg,var(--pink),var(--cyan));
+    color:#fff;
+    font-family:'Orbitron',sans-serif;
+    font-size:1rem;
+    letter-spacing:1px;
+    transition:.4s;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:14px;
+    box-shadow: 0 0 30px rgba(0,240,255,.25);
+}
+
+.download-btn::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+    transition:.8s;
+}
+
 .download-btn:hover::before{ left:100%; }
 .download-btn:hover{ transform:translateY(-3px) scale(1.01); box-shadow: 0 0 45px rgba(0,240,255,.45), 0 0 80px rgba(255,0,140,.18); }
 .download-btn:disabled{ opacity:.6; cursor:not-allowed; }
 
 /* LOADER */
-.loader{ width:22px; height:22px; border:3px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .8s linear infinite; display:none; }
+.loader{
+    width:22px;
+    height:22px;
+    border:3px solid rgba(255,255,255,.3);
+    border-top-color:#fff;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    display:none;
+}
+
 @keyframes spin{ to{ transform:rotate(360deg); } }
 
 /* RESULT */
 .result{ margin-top:28px; display:none; }
-.result-box{ padding:24px; border-radius:22px; background: linear-gradient(135deg, rgba(0,240,255,.08), rgba(255,0,140,.08)); border:1px solid rgba(0,240,255,.2); animation:show .5s ease; }
-.result-box h2{ font-family:'Orbitron',sans-serif; margin-bottom:12px; }
-.direct-btn{ margin-top:18px; display:flex; justify-content:center; align-items:center; gap:12px; height:60px; width:100%; border-radius:18px; background:#fff; color:#000; font-weight:700; text-decoration:none; transition:.35s; }
-.direct-btn:hover{ background:var(--cyan); transform:translateY(-3px); box-shadow: 0 0 30px rgba(0,240,255,.5); }
+.result-box{
+    padding:24px;
+    border-radius:22px;
+    background: linear-gradient(135deg, rgba(0,240,255,.08), rgba(255,0,140,.08));
+    border:1px solid rgba(0,240,255,.2);
+    animation:show .5s ease;
+}
 
-#error{ display:none; margin-top:20px; padding:18px; border-radius:18px; background:rgba(255,0,140,.08); border:1px solid rgba(255,0,140,.2); color:#ff7ab5; }
-@keyframes show{ from{ opacity:0; transform:translateY(15px); } to{ opacity:1; transform:translateY(0); } }
-.cyber-line{ height:1px; background: linear-gradient(to right, transparent, rgba(0,240,255,.5), transparent); margin:25px 0; }
+.result-box h2{ font-family:'Orbitron',sans-serif; margin-bottom:12px; }
+
+.direct-btn{
+    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    height:60px;
+    width:100%;
+    border-radius:18px;
+    background:#fff;
+    color:#000;
+    font-weight:700;
+    text-decoration:none;
+    transition:.35s;
+}
+
+.direct-btn:hover{
+    background:var(--cyan);
+    transform:translateY(-3px);
+    box-shadow: 0 0 30px rgba(0,240,255,.5);
+}
+
+#error{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    border-radius:18px;
+    background:rgba(255,0,140,.08);
+    border:1px solid rgba(255,0,140,.2);
+    color:#ff7ab5;
+}
+
+@keyframes show{
+    from{ opacity:0; transform:translateY(15px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+.cyber-line{
+    height:1px;
+    background: linear-gradient(to right, transparent, rgba(0,240,255,.5), transparent);
+    margin:25px 0;
+}
+
 .footer{ margin-top:20px; color:var(--muted); font-size:.95rem; }
+
 </style>
 </head>
 <body>
@@ -152,6 +404,7 @@ body{
 <div class="glow2"></div>
 
 <div class="main-card">
+
     <div class="topbar">
         <div class="brand">
             <div class="logo">
@@ -165,12 +418,14 @@ body{
     </div>
 
     <div class="content">
+
         <div class="left-panel">
             <div class="thumb-box">
                 <img id="thumbnail" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg">
                 <div class="thumb-overlay"></div>
                 <div class="live-badge">AI AUDIO ENGINE</div>
             </div>
+
             <div class="video-meta">
                 <h2 class="video-title" id="video-title">Waiting For YouTube Link...</h2>
                 <div class="channel" id="channel-name">No Channel Loaded</div>
@@ -235,169 +490,482 @@ body{
 </div>
 
 <script>
-// --- DOM Elements ---
+
+/* =========================
+   KANISHKA NET QUANTUM MP3 ENGINE
+   ULTRA ADVANCED API SYSTEM
+========================= */
+
+/* ELEMENTS */
+
 const ytInput = document.getElementById('yt-url');
+
 const thumbnail = document.getElementById('thumbnail');
 const titleEl = document.getElementById('video-title');
 const channelEl = document.getElementById('channel-name');
 const durationEl = document.getElementById('duration');
+
 const qualities = document.querySelectorAll('.quality');
 const qualityShow = document.getElementById('quality-show');
+
 const convertBtn = document.getElementById('convert-btn');
 const btnText = document.getElementById('btn-text');
 const loader = document.getElementById('loader');
+
 const result = document.getElementById('result');
 const downloadLink = document.getElementById('download-link');
+
 const errorBox = document.getElementById('error');
+
+/* NEW EXTRA UI */
+
+const API_KEY = "c7712c1778d2a736";
+
+const API_URLS = [
+  "https://api-dark-shan-yt.koyeb.app/download/ytmp3-v2",
+  "https://api-dark-shan-yt.koyeb.app/download/ytmp3"
+];
 
 let selectedQuality = "320";
 
-// --- Quality Selection Logic ---
+/* =========================
+   QUALITY SELECT
+========================= */
+
 qualities.forEach(q => {
+
     q.addEventListener('click', ()=>{
+
         qualities.forEach(x=>x.classList.remove('active'));
+
         q.classList.add('active');
+
         selectedQuality = q.dataset.quality;
+
         qualityShow.innerText = selectedQuality + "K";
     });
+
 });
 
-// --- Extract Video ID ---
+/* =========================
+   GET VIDEO ID
+========================= */
+
 function getVideoId(url){
-    const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|embed)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+
+    const reg =
+    /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|embed)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+
     const match = url.match(reg);
+
     return match ? match[1] : null;
 }
 
-// --- Fetch Video Metadata for Preview (Background processing) ---
+/* =========================
+   FETCH VIDEO INFO
+========================= */
+
 async function fetchVideoData(videoId){
-    try {
-        const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+
+    try{
+
+        const res = await fetch(
+        `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`
+        );
+
         const data = await res.json();
+
         if(data.title){
+
             titleEl.innerText = data.title;
-            channelEl.innerText = "Channel : " + data.author_name;
-            thumbnail.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+            channelEl.innerText =
+            "Channel : " + data.author_name;
+
+            thumbnail.src =
+            `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+            durationEl.innerText = "READY";
         }
-    } catch(err) {
-        console.log("Noembed Error:", err);
+
+    }catch(err){
+
+        console.log(err);
+
     }
 }
 
-// --- Live Input Tracking ---
+/* =========================
+   INPUT LISTENER
+========================= */
+
 ytInput.addEventListener('input', ()=>{
-    const videoId = getVideoId(ytInput.value.trim());
+
+    const videoId = getVideoId(
+        ytInput.value.trim()
+    );
+
     if(videoId){
+
         fetchVideoData(videoId);
-        durationEl.innerText = "LIVE";
-        errorBox.style.display = "none";
-        result.style.display = "none";
+
     }
+
 });
 
+/* =========================
+   SHOW ERROR
+========================= */
+
 function showError(msg){
+
     errorBox.style.display = "block";
+
     errorBox.innerText = msg;
 }
 
-// --- MAIN DOWNLOAD LOGIC (ADVANCED API INTEGRATION) ---
-convertBtn.addEventListener('click', async ()=>{
-    const url = ytInput.value.trim();
+/* =========================
+   RESET UI
+========================= */
+
+function resetUI(){
+
+    errorBox.style.display = "none";
+
+    result.style.display = "none";
+}
+
+/* =========================
+   LOADING STATE
+========================= */
+
+function setLoading(state){
+
+    convertBtn.disabled = state;
+
+    loader.style.display =
+    state ? "block" : "none";
+
+    btnText.innerText =
+    state
+    ? "INITIALIZING QUANTUM AUDIO"
+    : "INITIALIZE DOWNLOAD";
+}
+
+/* =========================
+   DOWNLOAD FILE DIRECTLY
+========================= */
+
+async function forceBrowserDownload(url, filename){
+
+    try{
+
+        const response = await fetch(url);
+
+        const blob = await response.blob();
+
+        const blobUrl =
+        window.URL.createObjectURL(blob);
+
+        const a =
+        document.createElement('a');
+
+        a.href = blobUrl;
+
+        a.download =
+        filename || "kanishka-net.mp3";
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        a.remove();
+
+        window.URL.revokeObjectURL(blobUrl);
+
+    }catch(err){
+
+        window.open(url, "_blank");
+
+    }
+}
+
+/* =========================
+   API REQUEST SYSTEM
+========================= */
+
+async function requestMP3(url){
+
+    for(const endpoint of API_URLS){
+
+        try{
+
+            const api =
+            `${endpoint}?apikey=${API_KEY}&url=${encodeURIComponent(url)}`;
+
+            const response =
+            await fetch(api,{
+                method:"GET",
+                headers:{
+                    "Accept":"application/json"
+                }
+            });
+
+            if(!response.ok){
+
+                continue;
+            }
+
+            const data =
+            await response.json();
+
+            console.log(data);
+
+            /* =========================
+               MULTIPLE RESPONSE SUPPORT
+            ========================= */
+
+            const resultUrl =
+            data.download ||
+            data.result?.download ||
+            data.result?.url ||
+            data.url ||
+            data.mp3 ||
+            data.data?.download ||
+            data.data?.url;
+
+            const title =
+            data.title ||
+            data.result?.title ||
+            data.data?.title ||
+            "Quantum Audio";
+
+            const thumbnailUrl =
+            data.thumbnail ||
+            data.result?.thumbnail ||
+            data.data?.thumbnail;
+
+            const duration =
+            data.duration ||
+            data.result?.duration ||
+            data.data?.duration;
+
+            const author =
+            data.author ||
+            data.channel ||
+            data.result?.author ||
+            data.data?.author;
+
+            if(resultUrl){
+
+                return{
+                    download:resultUrl,
+                    title,
+                    thumbnail:thumbnailUrl,
+                    duration,
+                    author
+                };
+            }
+
+        }catch(err){
+
+            console.log(
+            "API FAILED =>",
+            endpoint,
+            err
+            );
+
+        }
+    }
+
+    throw new Error(
+    "Quantum API server failed."
+    );
+}
+
+/* =========================
+   MAIN DOWNLOAD SYSTEM
+========================= */
+
+convertBtn.addEventListener(
+'click',
+async ()=>{
+
+    const url =
+    ytInput.value.trim();
 
     if(!url){
-        showError("Paste valid YouTube URL.");
+
+        showError(
+        "Paste valid YouTube URL."
+        );
+
         return;
     }
 
-    // Reset UI State for processing
-    errorBox.style.display = "none";
-    result.style.display = "none";
-    convertBtn.disabled = true;
-    btnText.innerText = "FETCHING DATA...";
-    loader.style.display = "block";
+    const videoId =
+    getVideoId(url);
 
-    try {
-        // --- 1. API Configuration ---
-        const apiKey = "c7712c1778d2a736";
-        const encodedUrl = encodeURIComponent(url);
-        
-        // අලුත් Dark Shan API Endpoint එක (GET Request)
-        // URL එක සහ API key එක query param එකක් විදිහටත් Header එකක් විදිහටත් යවනවා ආරක්ෂාවට
-        const apiUrl = `https://api-dark-shan-yt.koyeb.app/download/ytmp3-v2?url=${encodedUrl}&apikey=${apiKey}`;
+    if(!videoId){
 
-        // --- 2. Make the Request ---
-        const response = await fetch(apiUrl, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "x-api-key": apiKey,
-                "Authorization": `Bearer ${apiKey}`
-            }
-        });
+        showError(
+        "Invalid YouTube Link."
+        );
 
-        if (!response.ok) {
-            throw new Error(`Server returned status: ${response.status}`);
-        }
-
-        const contentType = response.headers.get("content-type") || "";
-        let finalDownloadLink = "";
-
-        // --- 3. Dynamic Response Handling ---
-        // අවස්ථාව A: API එකෙන් කෙලින්ම Audio ෆයිල් එකක් ආවොත් (Streamed Blob)
-        if (contentType.includes("audio") || contentType.includes("application/octet-stream") || contentType.includes("mpeg")) {
-            
-            const blob = await response.blob();
-            finalDownloadLink = window.URL.createObjectURL(blob);
-            downloadLink.href = finalDownloadLink;
-            downloadLink.setAttribute("download", "KanishkaNet_Audio.mp3");
-
-        } 
-        // අවස්ථාව B: API එකෙන් සාමාන්‍ය JSON එකක් ආවොත්
-        else if (contentType.includes("application/json")) {
-            
-            const data = await response.json();
-            console.log("Advanced API Response Data:", data);
-
-            // එක එක API වලින් link එක එවන නම වෙනස්. ඒ නිසා හැම විදිහක්ම Check කරනවා
-            finalDownloadLink = data.url || data.downloadUrl || data.download || data.link || (data.data && data.data.url) || (data.result && data.result.dl);
-
-            if (!finalDownloadLink) {
-                throw new Error("Could not find the download URL in the API response.");
-            }
-
-            downloadLink.href = finalDownloadLink;
-            downloadLink.removeAttribute("download"); // පිටත ලින්ක් එකක් නම් download attribute එක අවශ්‍ය නොවේ
-            downloadLink.target = "_blank";
-
-        } else {
-            throw new Error("Received unknown data type from the API.");
-        }
-
-        // --- 4. Auto-Trigger Browser Download (සුපිරිම විශේෂාංගය) ---
-        result.style.display = "block";
-        
-        // ස්වයංක්‍රීයව ෆයිල් එක බාගත කිරීම ආරම්භ කිරීමට <a> tag එකක් හදා click කරවීම
-        const autoDownload = document.createElement('a');
-        autoDownload.href = finalDownloadLink;
-        autoDownload.target = "_blank";
-        if(finalDownloadLink.startsWith('blob:')){
-            autoDownload.download = "KanishkaNet_Audio.mp3";
-        }
-        document.body.appendChild(autoDownload);
-        autoDownload.click();
-        autoDownload.remove(); // වැඩේ ඉවර වුණාම ඒක මකා දැමීම
-
-    } catch(err) {
-        console.error("API Fetch Error: ", err);
-        showError("System Error: " + err.message);
-    } finally {
-        // ක්‍රියාවලිය අවසන් වූ පසු Button එක යථා තත්ත්වයට පත් කිරීම
-        convertBtn.disabled = false;
-        btnText.innerText = "INITIALIZE DOWNLOAD";
-        loader.style.display = "none";
+        return;
     }
-});
-</script>
 
+    resetUI();
+
+    setLoading(true);
+
+    try{
+
+        /* FETCH MP3 */
+
+        const mp3Data =
+        await requestMP3(url);
+
+        console.log(mp3Data);
+
+        /* UPDATE UI */
+
+        if(mp3Data.title){
+
+            titleEl.innerText =
+            mp3Data.title;
+        }
+
+        if(mp3Data.author){
+
+            channelEl.innerText =
+            "Channel : " +
+            mp3Data.author;
+        }
+
+        if(mp3Data.thumbnail){
+
+            thumbnail.src =
+            mp3Data.thumbnail;
+        }
+
+        if(mp3Data.duration){
+
+            durationEl.innerText =
+            mp3Data.duration;
+        }
+
+        /* SHOW RESULT */
+
+        result.style.display = "block";
+
+        /* DOWNLOAD LINK */
+
+        downloadLink.href =
+        mp3Data.download;
+
+        downloadLink.innerHTML =
+        `⬇ DOWNLOAD ${selectedQuality}K MP3`;
+
+        /* DIRECT DOWNLOAD */
+
+        downloadLink.onclick =
+        async (e)=>{
+
+            e.preventDefault();
+
+            await forceBrowserDownload(
+                mp3Data.download,
+                `${mp3Data.title}.mp3`
+            );
+
+        };
+
+        /* AUTO DOWNLOAD */
+
+        setTimeout(async ()=>{
+
+            await forceBrowserDownload(
+                mp3Data.download,
+                `${mp3Data.title}.mp3`
+            );
+
+        },800);
+
+    }catch(err){
+
+        console.log(err);
+
+        showError(
+        err.message ||
+        "Audio conversion failed."
+        );
+
+    }finally{
+
+        setLoading(false);
+
+    }
+
+});
+
+/* =========================
+   ENTER KEY SUPPORT
+========================= */
+
+ytInput.addEventListener(
+'keypress',
+(e)=>{
+
+    if(e.key === "Enter"){
+
+        convertBtn.click();
+
+    }
+
+});
+
+/* =========================
+   ADVANCED GLOW FX
+========================= */
+
+document.addEventListener(
+'mousemove',
+(e)=>{
+
+    const x =
+    e.clientX / window.innerWidth;
+
+    const y =
+    e.clientY / window.innerHeight;
+
+    document.body.style.background =
+    `
+    radial-gradient(circle at ${
+        x * 100
+    }% ${
+        y * 100
+    }%,
+    rgba(0,240,255,.12),
+    transparent 25%),
+
+    radial-gradient(circle at ${
+        100 - x * 100
+    }% ${
+        100 - y * 100
+    }%,
+    rgba(255,0,140,.12),
+    transparent 25%),
+
+    linear-gradient(
+    135deg,
+    #050816,
+    #14041f,
+    #02141f
+    )
+    `;
+});
+
+</script>
 </body>
 </html>
