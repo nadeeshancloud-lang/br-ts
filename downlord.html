@@ -491,64 +491,104 @@ body{
 
 <script>
 
-/* =========================
-   KANISHKA NET QUANTUM MP3 ENGINE
-   ULTRA ADVANCED API SYSTEM
-========================= */
+/* =========================================================
+   KANISHKA NET - QUANTUM MP3 ENGINE
+   ULTRA ADVANCED YOUTUBE MP3 DOWNLOADER
+   FINAL STABLE VERSION 2026
+========================================================= */
 
-/* ELEMENTS */
+/* =========================
+   ELEMENTS
+========================= */
 
 const ytInput = document.getElementById('yt-url');
 
-const thumbnail = document.getElementById('thumbnail');
-const titleEl = document.getElementById('video-title');
-const channelEl = document.getElementById('channel-name');
-const durationEl = document.getElementById('duration');
+const thumbnail =
+document.getElementById('thumbnail');
 
-const qualities = document.querySelectorAll('.quality');
-const qualityShow = document.getElementById('quality-show');
+const titleEl =
+document.getElementById('video-title');
 
-const convertBtn = document.getElementById('convert-btn');
-const btnText = document.getElementById('btn-text');
-const loader = document.getElementById('loader');
+const channelEl =
+document.getElementById('channel-name');
 
-const result = document.getElementById('result');
-const downloadLink = document.getElementById('download-link');
+const durationEl =
+document.getElementById('duration');
 
-const errorBox = document.getElementById('error');
+const qualities =
+document.querySelectorAll('.quality');
 
-/* NEW EXTRA UI */
+const qualityShow =
+document.getElementById('quality-show');
 
-const API_KEY = "c7712c1778d2a736";
+const convertBtn =
+document.getElementById('convert-btn');
 
-const API_URLS = [
-  "https://api-dark-shan-yt.koyeb.app/download/ytmp3-v2",
-  "https://api-dark-shan-yt.koyeb.app/download/ytmp3"
+const btnText =
+document.getElementById('btn-text');
+
+const loader =
+document.getElementById('loader');
+
+const result =
+document.getElementById('result');
+
+const downloadLink =
+document.getElementById('download-link');
+
+const errorBox =
+document.getElementById('error');
+
+/* =========================
+   API CONFIG
+========================= */
+
+const API_KEY =
+"c7712c1778d2a736";
+
+const API_ENDPOINTS = [
+
+"https://api-dark-shan-yt.koyeb.app/download/ytmp3-v2",
+
+"https://api-dark-shan-yt.koyeb.app/download/ytmp3"
+
 ];
+
+/* =========================
+   GLOBALS
+========================= */
 
 let selectedQuality = "320";
 
+let currentDownloadUrl = null;
+
 /* =========================
-   QUALITY SELECT
+   QUALITY SELECTOR
 ========================= */
 
 qualities.forEach(q => {
 
     q.addEventListener('click', ()=>{
 
-        qualities.forEach(x=>x.classList.remove('active'));
+        qualities.forEach(x => {
+
+            x.classList.remove('active');
+
+        });
 
         q.classList.add('active');
 
-        selectedQuality = q.dataset.quality;
+        selectedQuality =
+        q.dataset.quality;
 
-        qualityShow.innerText = selectedQuality + "K";
+        qualityShow.innerText =
+        selectedQuality + "K";
     });
 
 });
 
 /* =========================
-   GET VIDEO ID
+   EXTRACT VIDEO ID
 ========================= */
 
 function getVideoId(url){
@@ -556,13 +596,16 @@ function getVideoId(url){
     const reg =
     /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|embed)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
 
-    const match = url.match(reg);
+    const match =
+    url.match(reg);
 
-    return match ? match[1] : null;
+    return match
+    ? match[1]
+    : null;
 }
 
 /* =========================
-   FETCH VIDEO INFO
+   FETCH YOUTUBE INFO
 ========================= */
 
 async function fetchVideoData(videoId){
@@ -570,22 +613,29 @@ async function fetchVideoData(videoId){
     try{
 
         const res = await fetch(
+
         `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`
+
         );
 
-        const data = await res.json();
+        const data =
+        await res.json();
 
         if(data.title){
 
-            titleEl.innerText = data.title;
+            titleEl.innerText =
+            data.title;
 
             channelEl.innerText =
-            "Channel : " + data.author_name;
+            "Channel : " +
+            data.author_name;
 
             thumbnail.src =
             `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
-            durationEl.innerText = "READY";
+            durationEl.innerText =
+            "READY";
+
         }
 
     }catch(err){
@@ -596,12 +646,15 @@ async function fetchVideoData(videoId){
 }
 
 /* =========================
-   INPUT LISTENER
+   AUTO VIDEO DETECT
 ========================= */
 
-ytInput.addEventListener('input', ()=>{
+ytInput.addEventListener(
+'input',
+()=>{
 
-    const videoId = getVideoId(
+    const videoId =
+    getVideoId(
         ytInput.value.trim()
     );
 
@@ -614,25 +667,29 @@ ytInput.addEventListener('input', ()=>{
 });
 
 /* =========================
-   SHOW ERROR
+   ERROR SYSTEM
 ========================= */
 
 function showError(msg){
 
-    errorBox.style.display = "block";
+    errorBox.style.display =
+    "block";
 
-    errorBox.innerText = msg;
+    errorBox.innerText =
+    msg;
 }
 
 /* =========================
-   RESET UI
+   RESET SYSTEM
 ========================= */
 
 function resetUI(){
 
-    errorBox.style.display = "none";
+    errorBox.style.display =
+    "none";
 
-    result.style.display = "none";
+    result.style.display =
+    "none";
 }
 
 /* =========================
@@ -641,129 +698,162 @@ function resetUI(){
 
 function setLoading(state){
 
-    convertBtn.disabled = state;
+    convertBtn.disabled =
+    state;
 
     loader.style.display =
-    state ? "block" : "none";
+    state
+    ? "block"
+    : "none";
 
     btnText.innerText =
     state
-    ? "INITIALIZING QUANTUM AUDIO"
+    ? "PROCESSING QUANTUM AUDIO"
     : "INITIALIZE DOWNLOAD";
 }
 
 /* =========================
-   DOWNLOAD FILE DIRECTLY
+   FORCE DOWNLOAD
 ========================= */
 
-async function forceBrowserDownload(url, filename){
+function forceDownload(url, filename){
 
-    try{
+    const a =
+    document.createElement("a");
 
-        const response = await fetch(url);
+    a.href = url;
 
-        const blob = await response.blob();
+    a.download =
+    filename || "audio.mp3";
 
-        const blobUrl =
-        window.URL.createObjectURL(blob);
+    a.target = "_blank";
 
-        const a =
-        document.createElement('a');
+    document.body.appendChild(a);
 
-        a.href = blobUrl;
+    a.click();
 
-        a.download =
-        filename || "kanishka-net.mp3";
-
-        document.body.appendChild(a);
-
-        a.click();
-
-        a.remove();
-
-        window.URL.revokeObjectURL(blobUrl);
-
-    }catch(err){
-
-        window.open(url, "_blank");
-
-    }
+    a.remove();
 }
 
 /* =========================
-   API REQUEST SYSTEM
+   API REQUEST
 ========================= */
 
-async function requestMP3(url){
+async function requestMP3(videoUrl){
 
-    for(const endpoint of API_URLS){
+    for(const endpoint of API_ENDPOINTS){
 
         try{
 
-            const api =
-            `${endpoint}?apikey=${API_KEY}&url=${encodeURIComponent(url)}`;
+            const apiUrl =
+            `${endpoint}?apikey=${API_KEY}&url=${encodeURIComponent(videoUrl)}`;
+
+            console.log(
+            "TRY API =>",
+            apiUrl
+            );
 
             const response =
-            await fetch(api,{
-                method:"GET",
-                headers:{
-                    "Accept":"application/json"
-                }
-            });
+            await fetch(apiUrl);
+
+            console.log(
+            "STATUS =>",
+            response.status
+            );
 
             if(!response.ok){
 
                 continue;
             }
 
-            const data =
-            await response.json();
+            const text =
+            await response.text();
 
-            console.log(data);
+            console.log(
+            "RAW RESPONSE =>",
+            text
+            );
+
+            let data;
+
+            try{
+
+                data =
+                JSON.parse(text);
+
+            }catch{
+
+                throw new Error(
+                "Invalid API Response"
+                );
+
+            }
 
             /* =========================
-               MULTIPLE RESPONSE SUPPORT
+               API ERROR
             ========================= */
 
-            const resultUrl =
-            data.download ||
-            data.result?.download ||
-            data.result?.url ||
-            data.url ||
-            data.mp3 ||
-            data.data?.download ||
-            data.data?.url;
+            if(data?.data?.error){
+
+                throw new Error(
+                    data.data.error
+                );
+            }
+
+            /* =========================
+               RESPONSE VALUES
+            ========================= */
+
+            const downloadUrl =
+
+            data?.data?.download ||
+
+            data?.result?.download ||
+
+            data?.download ||
+
+            data?.url ||
+
+            data?.mp3;
 
             const title =
-            data.title ||
-            data.result?.title ||
-            data.data?.title ||
+
+            data?.data?.title ||
+
+            data?.title ||
+
             "Quantum Audio";
 
             const thumbnailUrl =
-            data.thumbnail ||
-            data.result?.thumbnail ||
-            data.data?.thumbnail;
+
+            data?.data?.thumbnail ||
+
+            data?.thumbnail ||
+
+            `https://img.youtube.com/vi/${getVideoId(videoUrl)}/maxresdefault.jpg`;
 
             const duration =
-            data.duration ||
-            data.result?.duration ||
-            data.data?.duration;
 
-            const author =
-            data.author ||
-            data.channel ||
-            data.result?.author ||
-            data.data?.author;
+            data?.data?.duration ||
 
-            if(resultUrl){
+            data?.duration ||
 
-                return{
-                    download:resultUrl,
-                    title,
+            "Unknown";
+
+            if(downloadUrl){
+
+                return {
+
+                    success:true,
+
+                    download:downloadUrl,
+
+                    title:title,
+
                     thumbnail:thumbnailUrl,
-                    duration,
-                    author
+
+                    duration:duration
+
                 };
             }
 
@@ -771,7 +861,6 @@ async function requestMP3(url){
 
             console.log(
             "API FAILED =>",
-            endpoint,
             err
             );
 
@@ -779,7 +868,7 @@ async function requestMP3(url){
     }
 
     throw new Error(
-    "Quantum API server failed."
+    "Quantum MP3 Server Offline"
     );
 }
 
@@ -797,7 +886,7 @@ async ()=>{
     if(!url){
 
         showError(
-        "Paste valid YouTube URL."
+        "Paste YouTube URL First."
         );
 
         return;
@@ -809,7 +898,7 @@ async ()=>{
     if(!videoId){
 
         showError(
-        "Invalid YouTube Link."
+        "Invalid YouTube URL."
         );
 
         return;
@@ -821,84 +910,79 @@ async ()=>{
 
     try{
 
-        /* FETCH MP3 */
+        /* =========================
+           REQUEST MP3
+        ========================= */
 
         const mp3Data =
         await requestMP3(url);
 
-        console.log(mp3Data);
+        console.log(
+        "FINAL DATA =>",
+        mp3Data
+        );
 
-        /* UPDATE UI */
+        /* =========================
+           UPDATE UI
+        ========================= */
 
-        if(mp3Data.title){
+        titleEl.innerText =
+        mp3Data.title;
 
-            titleEl.innerText =
-            mp3Data.title;
-        }
+        channelEl.innerText =
+        "Quantum Audio Engine";
 
-        if(mp3Data.author){
+        thumbnail.src =
+        mp3Data.thumbnail;
 
-            channelEl.innerText =
-            "Channel : " +
-            mp3Data.author;
-        }
+        durationEl.innerText =
+        mp3Data.duration;
 
-        if(mp3Data.thumbnail){
+        currentDownloadUrl =
+        mp3Data.download;
 
-            thumbnail.src =
-            mp3Data.thumbnail;
-        }
+        /* =========================
+           SHOW RESULT
+        ========================= */
 
-        if(mp3Data.duration){
-
-            durationEl.innerText =
-            mp3Data.duration;
-        }
-
-        /* SHOW RESULT */
-
-        result.style.display = "block";
-
-        /* DOWNLOAD LINK */
+        result.style.display =
+        "block";
 
         downloadLink.href =
-        mp3Data.download;
+        currentDownloadUrl;
 
         downloadLink.innerHTML =
         `⬇ DOWNLOAD ${selectedQuality}K MP3`;
 
-        /* DIRECT DOWNLOAD */
+        /* =========================
+           DOWNLOAD CLICK
+        ========================= */
 
         downloadLink.onclick =
-        async (e)=>{
+        (e)=>{
 
             e.preventDefault();
 
-            await forceBrowserDownload(
-                mp3Data.download,
+            forceDownload(
+
+                currentDownloadUrl,
+
                 `${mp3Data.title}.mp3`
+
             );
 
         };
-
-        /* AUTO DOWNLOAD */
-
-        setTimeout(async ()=>{
-
-            await forceBrowserDownload(
-                mp3Data.download,
-                `${mp3Data.title}.mp3`
-            );
-
-        },800);
 
     }catch(err){
 
         console.log(err);
 
         showError(
-        err.message ||
-        "Audio conversion failed."
+
+            err.message ||
+
+            "Audio Conversion Failed"
+
         );
 
     }finally{
@@ -926,7 +1010,7 @@ ytInput.addEventListener(
 });
 
 /* =========================
-   ADVANCED GLOW FX
+   CYBER MOUSE GLOW FX
 ========================= */
 
 document.addEventListener(
@@ -934,28 +1018,27 @@ document.addEventListener(
 (e)=>{
 
     const x =
-    e.clientX / window.innerWidth;
+    e.clientX /
+    window.innerWidth;
 
     const y =
-    e.clientY / window.innerHeight;
+    e.clientY /
+    window.innerHeight;
 
     document.body.style.background =
-    `
-    radial-gradient(circle at ${
-        x * 100
-    }% ${
-        y * 100
-    }%,
-    rgba(0,240,255,.12),
-    transparent 25%),
 
-    radial-gradient(circle at ${
-        100 - x * 100
-    }% ${
-        100 - y * 100
-    }%,
-    rgba(255,0,140,.12),
-    transparent 25%),
+    `
+    radial-gradient(
+    circle at ${x * 100}% ${y * 100}%,
+    rgba(0,240,255,.12),
+    transparent 25%
+    ),
+
+    radial-gradient(
+    circle at ${100 - x * 100}% ${100 - y * 100}%,
+    rgba(255,0,140,.10),
+    transparent 25%
+    ),
 
     linear-gradient(
     135deg,
@@ -964,6 +1047,23 @@ document.addEventListener(
     #02141f
     )
     `;
+});
+
+/* =========================
+   STARTUP EFFECT
+========================= */
+
+window.addEventListener(
+'load',
+()=>{
+
+    setTimeout(()=>{
+
+        btnText.innerText =
+        "INITIALIZE DOWNLOAD";
+
+    },1200);
+
 });
 
 </script>
