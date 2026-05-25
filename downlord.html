@@ -493,15 +493,16 @@ body{
 
 /* =========================================================
    KANISHKA NET - QUANTUM MP3 ENGINE
-   ULTRA ADVANCED YOUTUBE MP3 DOWNLOADER
-   FINAL STABLE VERSION 2026
+   ULTRA ADVANCED FINAL STABLE SYSTEM
+   2026 EDITION
 ========================================================= */
 
 /* =========================
    ELEMENTS
 ========================= */
 
-const ytInput = document.getElementById('yt-url');
+const ytInput =
+document.getElementById('yt-url');
 
 const thumbnail =
 document.getElementById('thumbnail');
@@ -540,7 +541,7 @@ const errorBox =
 document.getElementById('error');
 
 /* =========================
-   API CONFIG
+   API SETTINGS
 ========================= */
 
 const API_KEY =
@@ -563,14 +564,14 @@ let selectedQuality = "320";
 let currentDownloadUrl = null;
 
 /* =========================
-   QUALITY SELECTOR
+   QUALITY SELECT
 ========================= */
 
 qualities.forEach(q => {
 
     q.addEventListener('click', ()=>{
 
-        qualities.forEach(x => {
+        qualities.forEach(x=>{
 
             x.classList.remove('active');
 
@@ -583,12 +584,13 @@ qualities.forEach(q => {
 
         qualityShow.innerText =
         selectedQuality + "K";
+
     });
 
 });
 
 /* =========================
-   EXTRACT VIDEO ID
+   VIDEO ID EXTRACT
 ========================= */
 
 function getVideoId(url){
@@ -605,21 +607,22 @@ function getVideoId(url){
 }
 
 /* =========================
-   FETCH YOUTUBE INFO
+   FETCH VIDEO INFO
 ========================= */
 
 async function fetchVideoData(videoId){
 
     try{
 
-        const res = await fetch(
+        const response =
+        await fetch(
 
         `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`
 
         );
 
         const data =
-        await res.json();
+        await response.json();
 
         if(data.title){
 
@@ -646,7 +649,7 @@ async function fetchVideoData(videoId){
 }
 
 /* =========================
-   AUTO VIDEO DETECT
+   AUTO DETECT VIDEO
 ========================= */
 
 ytInput.addEventListener(
@@ -667,7 +670,7 @@ ytInput.addEventListener(
 });
 
 /* =========================
-   ERROR SYSTEM
+   SHOW ERROR
 ========================= */
 
 function showError(msg){
@@ -680,7 +683,7 @@ function showError(msg){
 }
 
 /* =========================
-   RESET SYSTEM
+   RESET UI
 ========================= */
 
 function resetUI(){
@@ -693,7 +696,7 @@ function resetUI(){
 }
 
 /* =========================
-   LOADING STATE
+   LOADING SYSTEM
 ========================= */
 
 function setLoading(state){
@@ -708,35 +711,12 @@ function setLoading(state){
 
     btnText.innerText =
     state
-    ? "PROCESSING QUANTUM AUDIO"
+    ? "PROCESSING AUDIO..."
     : "INITIALIZE DOWNLOAD";
 }
 
 /* =========================
-   FORCE DOWNLOAD
-========================= */
-
-function forceDownload(url, filename){
-
-    const a =
-    document.createElement("a");
-
-    a.href = url;
-
-    a.download =
-    filename || "audio.mp3";
-
-    a.target = "_blank";
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-}
-
-/* =========================
-   API REQUEST
+   API REQUEST SYSTEM
 ========================= */
 
 async function requestMP3(videoUrl){
@@ -746,6 +726,7 @@ async function requestMP3(videoUrl){
         try{
 
             const apiUrl =
+
             `${endpoint}?apikey=${API_KEY}&url=${encodeURIComponent(videoUrl)}`;
 
             console.log(
@@ -790,18 +771,21 @@ async function requestMP3(videoUrl){
             }
 
             /* =========================
-               API ERROR
+               SERVER ERROR
             ========================= */
 
             if(data?.data?.error){
 
-                throw new Error(
-                    data.data.error
+                console.log(
+                "SERVER ERROR =>",
+                data.data.error
                 );
+
+                continue;
             }
 
             /* =========================
-               RESPONSE VALUES
+               GET DOWNLOAD URL
             ========================= */
 
             const downloadUrl =
@@ -816,13 +800,9 @@ async function requestMP3(videoUrl){
 
             data?.mp3;
 
-            const title =
-
-            data?.data?.title ||
-
-            data?.title ||
-
-            "Quantum Audio";
+            /* =========================
+               EXTRA DATA
+            ========================= */
 
             const thumbnailUrl =
 
@@ -842,19 +822,18 @@ async function requestMP3(videoUrl){
 
             if(downloadUrl){
 
-                return {
+                return{
 
                     success:true,
 
                     download:downloadUrl,
-
-                    title:title,
 
                     thumbnail:thumbnailUrl,
 
                     duration:duration
 
                 };
+
             }
 
         }catch(err){
@@ -865,6 +844,7 @@ async function requestMP3(videoUrl){
             );
 
         }
+
     }
 
     throw new Error(
@@ -873,7 +853,7 @@ async function requestMP3(videoUrl){
 }
 
 /* =========================
-   MAIN DOWNLOAD SYSTEM
+   MAIN DOWNLOAD
 ========================= */
 
 convertBtn.addEventListener(
@@ -911,7 +891,7 @@ async ()=>{
     try{
 
         /* =========================
-           REQUEST MP3
+           REQUEST AUDIO
         ========================= */
 
         const mp3Data =
@@ -926,17 +906,14 @@ async ()=>{
            UPDATE UI
         ========================= */
 
-        titleEl.innerText =
-        mp3Data.title;
-
-        channelEl.innerText =
-        "Quantum Audio Engine";
-
         thumbnail.src =
         mp3Data.thumbnail;
 
         durationEl.innerText =
         mp3Data.duration;
+
+        channelEl.innerText =
+        "Quantum Audio Engine";
 
         currentDownloadUrl =
         mp3Data.download;
@@ -955,7 +932,7 @@ async ()=>{
         `⬇ DOWNLOAD ${selectedQuality}K MP3`;
 
         /* =========================
-           DOWNLOAD CLICK
+           OPEN DOWNLOAD
         ========================= */
 
         downloadLink.onclick =
@@ -963,12 +940,9 @@ async ()=>{
 
             e.preventDefault();
 
-            forceDownload(
-
+            window.open(
                 currentDownloadUrl,
-
-                `${mp3Data.title}.mp3`
-
+                "_blank"
             );
 
         };
@@ -1010,7 +984,7 @@ ytInput.addEventListener(
 });
 
 /* =========================
-   CYBER MOUSE GLOW FX
+   DYNAMIC CYBER GLOW FX
 ========================= */
 
 document.addEventListener(
@@ -1057,14 +1031,28 @@ window.addEventListener(
 'load',
 ()=>{
 
-    setTimeout(()=>{
-
-        btnText.innerText =
-        "INITIALIZE DOWNLOAD";
-
-    },1200);
+    btnText.innerText =
+    "INITIALIZE DOWNLOAD";
 
 });
+
+/* =========================
+   CYBER TERMINAL LOG
+========================= */
+
+console.log(
+
+"%cKANISHKA NET QUANTUM ENGINE ACTIVE",
+
+`
+
+color:#00f0ff;
+font-size:18px;
+font-weight:bold;
+
+`
+
+);
 
 </script>
 </body>
